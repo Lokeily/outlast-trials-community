@@ -265,9 +265,12 @@ section{margin-top:30px}
 
 /* ===== 动效（transform / opacity 为主，GPU 友好） ===== */
 /* 滚动进入：用 transition 而非 keyframes，避免动画结束后残留合成层 */
-.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s cubic-bezier(.22,.61,.36,1);transition-delay:var(--d,0ms)}
-.js .reveal.in{opacity:1;transform:none}
-.js .site-nav.reveal{transform:none}
+/* 进入动画用纯 CSS 动画自动播放：只要加上 .reveal 就显形，
+   不再依赖 JS 追加第二个类，避免“卡在隐藏态看不到内容” */
+.js .reveal{opacity:0;animation:rise .6s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--d,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes riseSoft{from{opacity:0}to{opacity:1}}
+.js .site-nav.reveal{animation-name:riseSoft}
 
 /* 导航项下划线滑入 */
 .nav-links a{position:relative}
@@ -319,7 +322,7 @@ section{margin-top:30px}
   /* 导航栏去掉毛玻璃，滚动时不再反复重栅格化背后内容 */
   .site-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,11,13,.94)}
   /* 进入动画仅做淡入、不位移，降低合成层开销 */
-  .js .reveal{transform:none;transition:opacity .4s ease}
+  .js .reveal{animation-name:riseSoft;animation-duration:.45s}
 }
 
 /* 减少动效偏好：全部静止，保证可读与无障碍 */
