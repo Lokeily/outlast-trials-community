@@ -109,7 +109,7 @@ section{margin-top:30px}
   background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
   padding:22px;transition:.2s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
 }
-.card:hover{transform:translateY(-5px);border-color:rgba(226,55,43,.55);box-shadow:0 14px 36px rgba(226,55,43,.18)}
+.card:hover{border-color:rgba(226,55,43,.55);box-shadow:0 18px 44px rgba(226,55,43,.22)}
 .card .ico{font-size:34px}
 .card h3{font-size:18px;color:var(--text)}
 .card p{font-size:13px;color:var(--text-dim);flex:1}
@@ -260,4 +260,58 @@ section{margin-top:30px}
 @media (max-width:380px){
   .grid{grid-template-columns:repeat(3,1fr)}
   .cell .ic{width:40px;height:40px}
+}
+
+/* ===== 动效（transform / opacity 为主，GPU 友好） ===== */
+/* 滚动进入：JS 给元素加 .reveal，进入视口再加 .in 播放上升淡入 */
+.js .reveal{opacity:0}
+.js .reveal.in{animation:rise .7s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--d,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* 导航项下划线滑入 */
+.nav-links a{position:relative}
+.nav-links a::after{
+  content:"";position:absolute;left:13px;right:13px;bottom:5px;height:2px;border-radius:2px;
+  background:var(--accent-grad);transform:scaleX(0);transform-origin:left;transition:transform .28s ease;
+}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+
+/* 卡片光泽扫过（独立伪元素，不干扰进入动画） */
+.card{position:relative;overflow:hidden}
+.card::after{
+  content:"";position:absolute;top:0;left:-60%;width:55%;height:100%;pointer-events:none;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.14),transparent);
+  transform:skewX(-18deg);
+}
+.card:hover::after{animation:sweep .85s ease}
+@keyframes sweep{from{left:-60%}to{left:120%}}
+
+/* 复生：卡片/格子上浮（这些元素不是进入动画目标，可放心用 transform） */
+.cell{transition:transform .18s ease,border-color .15s ease}
+.cell:hover{transform:translateY(-3px)}
+.item{transition:transform .18s ease,border-color .15s ease,box-shadow .18s ease}
+.item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(226,55,43,.16)}
+
+/* 新闻：展开动画 + 指示箭头旋转 */
+.news-item[open] .news-body{animation:newsIn .38s ease both}
+@keyframes newsIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.news-head{padding-right:36px}
+.news-head::after{
+  content:"";position:absolute;right:16px;top:50%;width:9px;height:9px;margin-top:-7px;
+  border-right:2px solid var(--text-mute);border-bottom:2px solid var(--text-mute);
+  transform:rotate(45deg);transition:transform .3s ease,border-color .3s ease;border-radius:1px;
+}
+.news-item[open] .news-head::after{transform:rotate(-135deg);border-color:var(--red-bright)}
+
+/* 图片悬停微放大 */
+.news-fig,.ribbon{transition:transform .4s ease,filter .4s ease}
+.news-fig:hover{transform:scale(1.02);filter:brightness(1.06)}
+.cell .ic{transition:transform .2s ease}
+.cell:hover .ic{transform:scale(1.08)}
+
+/* 减少动效偏好：全部静止，保证可读与无障碍 */
+@media (prefers-reduced-motion: reduce){
+  .js .reveal{opacity:1 !important;animation:none !important}
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .card::after{display:none}
 }
