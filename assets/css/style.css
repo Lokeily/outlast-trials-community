@@ -173,6 +173,29 @@ section{margin-top:30px}
 .callout{border-left:4px solid var(--amber);background:rgba(217,164,65,.08);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:13.5px;color:#e8d9b5}
 .callout.info{border-color:var(--teal);background:rgba(63,128,115,.08);color:#cfe9e2}
 
+/* ===== 新闻资讯板块 ===== */
+.news-card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 18px;margin-top:18px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.news-head{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.news-date{
+  font-size:12px;font-weight:700;color:#0a0b0d;background:var(--amber);
+  padding:2px 10px;border-radius:7px;letter-spacing:.03em;
+}
+.news-tag{font-size:11px;font-weight:700;color:var(--red-bright);border:1px solid var(--border);padding:2px 9px;border-radius:7px}
+.news-tag.major{background:var(--accent-grad);color:#fff;border-color:transparent}
+.news-head h3{font-size:18px;color:var(--text);margin:0}
+.news-list{list-style:none;margin:6px 0 0;padding:0}
+.news-list li{font-size:13.5px;color:var(--text-dim);line-height:1.7;margin-bottom:7px;padding-left:16px;position:relative}
+.news-list li::before{content:"";position:absolute;left:2px;top:10px;width:6px;height:6px;border-radius:2px;background:var(--red)}
+.news-list b{color:var(--text)}
+.news-sub{font-size:13px;color:var(--text-dim);margin:4px 0 8px}
+.news-grid{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:10px}
+.news-grid .mini{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:10px 12px}
+.news-grid .mini b{color:var(--text);display:block;font-size:13px;margin-bottom:3px}
+.news-grid .mini span{font-size:12px;color:var(--text-dim)}
+
 /* ===== Giscus / 页脚 / 编辑链接 ===== */
 #giscus-comments{margin-top:34px;min-height:120px}
 .site-foot{margin-top:50px;border-top:1px solid var(--border);padding:22px 18px;text-align:center;color:var(--text-mute);font-size:12px;line-height:1.9}
