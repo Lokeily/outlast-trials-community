@@ -182,13 +182,19 @@ section{margin-top:30px}
 
 .news-head{
   position:relative;border-radius:12px;
-  background:var(--panel);border:1px solid var(--border);
+  background:var(--panel);background-clip:padding-box;
+  border:2px solid transparent;
   padding:14px 16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
   transition:.15s;
 }
+/* 跑马灯只画在 2px 边框环上：用 mask 把中间挖空，避免整层旋转导致卡顿 */
 .news-head::before{
-  content:"";position:absolute;inset:-2px;border-radius:14px;z-index:-1;
+  content:"";position:absolute;inset:0;border-radius:12px;padding:2px;pointer-events:none;
   background:conic-gradient(from var(--angle),transparent 0deg,var(--red) 45deg,var(--amber) 95deg,transparent 155deg,transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
   animation:spin 4.5s linear infinite;
 }
 .news-item.patch .news-head::before{
