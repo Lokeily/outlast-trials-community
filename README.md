@@ -17,6 +17,7 @@
 | **新手小贴士** | [newbie.html](./newbie.html) | 刚进游戏该先做什么、哪些坑别踩 |
 | **入坑须知** | [getting-started.html](./getting-started.html) | 游戏类型、平台、买前必看的基础认知 |
 | **新闻资讯** | [news.html](./news.html) | 游戏简介 + 近期更新 / 补丁（官方英文译中文），追最新版本动态 |
+| **社区讨论** | [discuss.html](./discuss.html) | 全站统一的综合讨论板块；各内容页底部另保留「当前页面内容的回复」 |
 
 全站特点：
 
