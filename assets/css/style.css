@@ -310,6 +310,18 @@ section{margin-top:30px}
 .cell .ic{transition:transform .2s ease}
 .cell:hover .ic{transform:scale(1.08)}
 
+/* ===== 移动端：简化动效，避免手机掉帧 ===== */
+@media (max-width:767px){
+  /* 跑马灯改为静止彩色边框，省去每帧重绘圆锥渐变（手机最大开销之一） */
+  .news-head::before{animation:none}
+  /* 关闭卡片光泽扫过（触屏本就无 hover） */
+  .card::after{display:none}
+  /* 导航栏去掉毛玻璃，滚动时不再反复重栅格化背后内容 */
+  .site-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,11,13,.94)}
+  /* 进入动画仅做淡入、不位移，降低合成层开销 */
+  .js .reveal{transform:none;transition:opacity .4s ease}
+}
+
 /* 减少动效偏好：全部静止，保证可读与无障碍 */
 @media (prefers-reduced-motion: reduce){
   .js .reveal{opacity:1 !important;transform:none !important;transition:none !important}
