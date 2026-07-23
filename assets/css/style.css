@@ -32,14 +32,13 @@ body{
     radial-gradient(900px 620px at 85% 110%,rgba(63,128,115,.10),transparent 55%),
     radial-gradient(800px 520px at 5% 100%,rgba(217,164,65,.06),transparent 55%),
     var(--bg);
-  background-attachment:fixed;
   padding-bottom:40px;
 }
 /* 氛围噪点纹理（程序生成，无版权/无额外请求） */
 body::before{
   content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity:.05;mix-blend-mode:overlay;
+  opacity:.045;
 }
 /* 暗角，强化压抑氛围 */
 body::after{
@@ -106,8 +105,8 @@ section{margin-top:30px}
 }
 .card{
   display:flex;flex-direction:column;gap:10px;
-  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
-  padding:22px;transition:.2s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  background:rgba(26,28,30,.78);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px;transition:.2s;
 }
 .card:hover{border-color:rgba(226,55,43,.55);box-shadow:0 18px 44px rgba(226,55,43,.22)}
 .card .ico{font-size:34px}
@@ -118,7 +117,7 @@ section{margin-top:30px}
 
 /* ===== 复生方案：总览 ===== */
 .ovcols{display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
-.col{width:340px;max-width:100%;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.col{width:340px;max-width:100%;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
 .cat{font-weight:700;font-size:14px;color:var(--text-dim);text-align:center;margin-bottom:8px;letter-spacing:.05em}
 .ribbon{width:100%;height:auto;display:block;border-radius:8px;margin-bottom:6px}
 .item{position:relative;display:flex;align-items:center;gap:14px;margin-top:12px;background:var(--panel-2);border:1px solid var(--red);border-radius:11px;padding:12px 14px;min-height:84px}
@@ -135,7 +134,7 @@ section{margin-top:30px}
 
 /* ===== 复生方案：九宫格 ===== */
 .boards{display:flex;gap:22px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
-.gridwrap{width:348px;max-width:100%;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.gridwrap{width:348px;max-width:100%;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
 .ghead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .ghead .ribbon{width:150px}
 .ghead span{font-weight:700;font-size:15px;color:var(--text-dim)}
@@ -151,12 +150,12 @@ section{margin-top:30px}
 
 /* ===== 说明卡片 / 小贴士 ===== */
 .anns{max-width:1100px;margin:26px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.ncard{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ncard{background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
 .ntitle{font-weight:700;font-size:15px;margin-bottom:8px;color:var(--text)}
 .nlist{list-style:none}
 .nlist li{font-size:12.5px;color:var(--text-dim);line-height:1.6;margin-bottom:7px}
 .nlist b{color:var(--text)}
-.tips{max-width:1100px;margin:28px auto 0;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;border-top:3px solid var(--amber);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.tips{max-width:1100px;margin:28px auto 0;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;border-top:3px solid var(--amber)}
 .tipstitle{font-weight:700;font-size:17px;color:var(--amber);text-align:center;margin-bottom:14px}
 .tipgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .tip{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--text-dim);line-height:1.55;display:flex;align-items:flex-start;gap:8px}
@@ -169,7 +168,7 @@ section{margin-top:30px}
 .article p,.article li{font-size:14px;color:var(--text-dim)}
 .article ul,.article ol{padding-left:22px;margin:8px 0}
 .article li{margin-bottom:7px}
-.article .lead{font-size:15px;color:var(--text-dim);background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:14px 0;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.article .lead{font-size:15px;color:var(--text-dim);background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:14px 0}
 .callout{border-left:4px solid var(--amber);background:rgba(217,164,65,.08);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:13.5px;color:#e8d9b5}
 .callout.info{border-color:var(--teal);background:rgba(63,128,115,.08);color:#cfe9e2}
 
@@ -182,9 +181,9 @@ section{margin-top:30px}
 
 .news-head{
   position:relative;border-radius:12px;
-  background:var(--panel);background-clip:padding-box;
+  background:rgba(26,28,30,.82);background-clip:padding-box;
   border:2px solid transparent;
-  padding:14px 16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  padding:14px 16px;
   transition:.15s;
 }
 /* 跑马灯只画在 2px 边框环上：用 mask 把中间挖空，避免整层旋转导致卡顿 */
@@ -196,7 +195,9 @@ section{margin-top:30px}
   -webkit-mask-composite:xor;
           mask-composite:exclude;
   animation:spin 4.5s linear infinite;
+  animation-play-state:paused; /* 默认暂停，进入视口才旋转，离开即停，避免持续重绘 */
 }
+.news-item.inview .news-head::before{animation-play-state:running}
 .news-item.patch .news-head::before{
   background:conic-gradient(from var(--angle),transparent 0deg,var(--teal) 45deg,var(--cyan,#22d3ee) 95deg,transparent 155deg,transparent 360deg);
 }
@@ -230,7 +231,7 @@ section{margin-top:30px}
 .site-foot a{color:var(--text-dim)}
 .edit-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--text-dim);border:1px solid var(--border);border-radius:8px;padding:4px 10px;transition:.15s}
 .edit-link:hover{color:var(--red-bright);border-color:rgba(226,55,43,.5);background:var(--panel)}
-.contrib{max-width:1100px;margin:0 auto 16px;text-align:center;font-size:13px;color:var(--text-dim);background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.contrib{max-width:1100px;margin:0 auto 16px;text-align:center;font-size:13px;color:var(--text-dim);background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:10px;padding:10px 14px}
 .contrib a{font-weight:700}
 .legend{max-width:1100px;margin:18px auto 0;text-align:center;font-size:13px;color:var(--text-dim)}
 .legend b{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -263,10 +264,9 @@ section{margin-top:30px}
 }
 
 /* ===== 动效（transform / opacity 为主，GPU 友好） ===== */
-/* 滚动进入：JS 给元素加 .reveal，进入视口再加 .in 播放上升淡入 */
-.js .reveal{opacity:0}
-.js .reveal.in{animation:rise .7s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--d,0ms)}
-@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* 滚动进入：用 transition 而非 keyframes，避免动画结束后残留合成层 */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,.61,.36,1);transition-delay:var(--d,0ms)}
+.js .reveal.in{opacity:1;transform:none}
 
 /* 导航项下划线滑入 */
 .nav-links a{position:relative}
@@ -311,7 +311,8 @@ section{margin-top:30px}
 
 /* 减少动效偏好：全部静止，保证可读与无障碍 */
 @media (prefers-reduced-motion: reduce){
-  .js .reveal{opacity:1 !important;animation:none !important}
-  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .js .reveal{opacity:1 !important;transform:none !important;transition:none !important}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
   .card::after{display:none}
+  .news-head::before,.news-item.inview .news-head::before{animation-play-state:paused !important}
 }

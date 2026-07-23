@@ -34,4 +34,15 @@
     el.style.setProperty('--d', (idx * 65) + 'ms');
     io.observe(el);
   });
+
+  /* 跑马灯仅在新闻项进入视口时旋转，离开即暂停，避免整页后台持续重绘 */
+  var newsItems = document.querySelectorAll('.news-item');
+  if (newsItems.length && 'IntersectionObserver' in window) {
+    var spin = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        e.target.classList.toggle('inview', e.isIntersecting);
+      });
+    }, { threshold: 0.05 });
+    newsItems.forEach(function (el) { spin.observe(el); });
+  }
 })();
