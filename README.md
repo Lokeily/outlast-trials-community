@@ -11,9 +11,12 @@
 直接用浏览器打开 `index.html` 即可（图标已 base64 内嵌，离线可用）。
 
 ## 如何参与共建
-发现错误、想补充强化剂效果、或小贴士？欢迎提交 Pull Request：
-1. Fork 本仓库
-2. 修改 `index.html`
-3. 发起 PR，维护者审核合并
+发现错误、想补充强化剂效果、或小贴士？欢迎提交 Issue 或 Pull Request。
+
+- 详细流程、页面结构、样式规范请看 **[CONTRIBUTING.md](./CONTRIBUTING.md)**
+- 快速上手：
+  1. Fork 本仓库
+  2. 修改 `index.html`
+  3. 发起 PR，维护者审核合并
 
 图标来自官方 Wiki（outlast.fandom.com），社区建议整理自贴吧讨论。
