@@ -2,6 +2,8 @@
 
 《逃生：试炼》(The Outlast Trials) 玩家共建小站，**由社区共同维护**。
 
+🌐 **在线访问：** https://lokeily.github.io/outlast-trials-community/
+
 ![社区首页预览](preview.png)
 
 | 页面 | 文件 | 说明 |
@@ -16,6 +18,7 @@
 - 响应式布局，适配 PC、平板、手机
 - 图标外链至 `assets/icons/`（浏览器可缓存，跨页复用），不再内嵌 base64
 - 每页底部都有 **Giscus 评论区**（基于 GitHub Discussions），可评论、分享配装与心得
+- 每页页脚都有 **「✏️ 在 GitHub 上编辑此页」** 按钮，点一下即可直接修改并提交 PR
 
 ## 本地预览
 
