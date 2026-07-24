@@ -661,3 +661,9 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   color:var(--red);
   flex:none;
 }
+
+/* ── 增强层 · 全站内联图标（emoji→SVG 统一） ── */
+.ico-i{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;flex:0 0 auto;overflow:visible}
+.ico-i.dot{width:.92em;height:.92em;vertical-align:-.06em}
+.ico-i.star{color:#ffcb47}
+.menu-toggle .ico-i,.menu-toggle svg{width:20px;height:20px}
