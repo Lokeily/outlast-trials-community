@@ -11,7 +11,7 @@
   //   CloudBase    → 环境 ID 字符串，如 outlast-community-abc123
   //   Netlify     → https://xxx.netlify.app/.netlify/functions/twikoo
   //   HuggingFace → https://xxx-xxx.hf.space
-  var TWIKOO_ENV_ID = 'YOUR_TWIKOO_ENV_ID';
+  var TWIKOO_ENV_ID = 'https://outlat-twikoo.netlify.app/.netlify/functions/twikoo';
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
