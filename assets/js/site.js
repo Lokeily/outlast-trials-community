@@ -16,6 +16,9 @@
   // 移动端汉堡菜单（与动效无关，始终启用）
   try { setupMobileMenu(); } catch (e) { /* 忽略 */ }
 
+  // 装备图鉴筛选（与动效无关，始终启用）
+  try { setupEquipFilter(); } catch (e) { /* 忽略 */ }
+
   if (reduce) return; // 已开启"减少动态效果"则不再加任何进入动画
 
   // 进入动画：给内容块加 .reveal，CSS 动画会自动播放显形（不依赖第二个类，
@@ -85,6 +88,57 @@
         nav.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
       }
+    });
+  }
+
+  // 装备图鉴筛选：全部 / 核心 / 新手推荐 / 老玩家推荐
+  // 点筛选按钮或点卡片上的徽章均可触发；无结果也不留空白。
+  function setupEquipFilter() {
+    var bar = document.getElementById('eqFilter');
+    if (!bar) return;
+    var btns = Array.prototype.slice.call(bar.querySelectorAll('.fbtn'));
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.ampgrid .itcard'));
+    if (!cards.length) return;
+
+    function matches(card, f) {
+      if (f === 'all') return true;
+      var cls = f === 'core' ? 'core' : (f === 'new' ? 'bnew' : 'bvet');
+      return !!card.querySelector('.badge.' + cls);
+    }
+    function apply(f) {
+      // 1) 先显隐卡片
+      cards.forEach(function (c) {
+        c.classList.toggle('hide', !matches(c, f));
+      });
+      // 2) 整块无匹配则隐藏该板块标题，避免“空白一片”
+      document.querySelectorAll('.ampsec').forEach(function (s) {
+        var grid = s.querySelector('.ampgrid');
+        if (!grid) return; // 推荐分类 / 组合区始终保留
+        var any = grid.querySelector('.itcard:not(.hide)');
+        s.style.display = any ? '' : 'none';
+      });
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        apply(b.getAttribute('data-filter'));
+      });
+    });
+    // 点卡片徽章 = 直接按该维度筛选
+    cards.forEach(function (c) {
+      var badges = c.querySelectorAll('.badge');
+      badges.forEach(function (bg) {
+        bg.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var key = bg.classList.contains('core') ? 'core'
+                  : bg.classList.contains('bnew') ? 'new'
+                  : bg.classList.contains('bvet') ? 'vet' : null;
+          if (!key) return;
+          var btn = bar.querySelector('.fbtn[data-filter="' + key + '"]');
+          if (btn) btn.click();
+        });
+      });
     });
   }
 })();
