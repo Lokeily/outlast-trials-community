@@ -17,7 +17,7 @@
 
   // 进入动画：给内容块加 .reveal，CSS 动画会自动播放显形（不依赖第二个类，
   // 即使后续 JS 出错也不会卡在隐藏态）。--d 控制自上而下级联节奏
-  var sel = '.site-nav, .hero, .cards, .col, .gridwrap, .news-item, ' +
+  var sel = '.site-nav, .hero, .ampsec, .cards, .col, .gridwrap, .news-item, ' +
             '.ncard, .tips, .article, .legend, .contrib, #giscus-comments, .site-foot';
   var els = Array.prototype.slice.call(document.querySelectorAll(sel));
   els.forEach(function (el, i) {

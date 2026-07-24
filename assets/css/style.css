@@ -236,6 +236,26 @@ section{margin-top:30px}
 .legend{max-width:1100px;margin:18px auto 0;text-align:center;font-size:13px;color:var(--text-dim)}
 .legend b{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+/* ===== 强化剂图鉴（Amp Codex） ===== */
+.ampboard{max-width:1100px;margin:0 auto}
+.ampsec{margin-top:30px}
+.ampsec .ampbar{display:flex;align-items:center;gap:10px;margin:6px 0 2px}
+.ampsec .ampbar img{width:140px;height:auto;border-radius:8px}
+.ampsec .ampbar .tag{font-weight:800;font-size:15px;color:var(--text-dim);letter-spacing:.05em}
+.ampgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px;margin-top:14px;content-visibility:auto;contain-intrinsic-size:auto 560px}
+.ampcard{position:relative;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:12px;padding:14px 12px 13px;text-align:center;transition:transform .18s ease,border-color .15s ease,box-shadow .18s ease}
+.ampcard:hover{transform:translateY(-3px);border-color:rgba(226,55,43,.55);box-shadow:0 14px 34px rgba(226,55,43,.2)}
+.ampcard .ic{width:58px;height:58px;object-fit:contain;transition:transform .2s ease}
+.ampcard:hover .ic{transform:scale(1.08)}
+.ampcard .cn{font-weight:700;font-size:14.5px;color:var(--text);margin-top:9px}
+.ampcard .en{font-size:9.5px;color:#7c8694;margin-top:2px;letter-spacing:.04em}
+.ampcard .desc{font-size:11.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.ampcard .pill{position:absolute;top:-9px;right:-7px;font-size:10px;font-weight:800;padding:2px 8px;border-radius:8px;line-height:1.2;white-space:nowrap}
+.ampcard .pill.core{background:var(--accent-grad);color:#fff}
+.ampcard .pill.rec{background:rgba(63,185,80,.16);color:#5fd07a;border:1px solid rgba(63,185,80,.5)}
+.ampnote{max-width:1100px;margin:18px auto 0;text-align:center;font-size:12px;color:var(--text-mute)}
+.ampnote b{color:var(--text-dim)}
+
 /* ===== 响应式 ===== */
 @media (max-width:900px){
   .anns{grid-template-columns:1fr}
