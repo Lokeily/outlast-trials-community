@@ -16,6 +16,9 @@
   // 移动端汉堡菜单（与动效无关，始终启用）
   try { setupMobileMenu(); } catch (e) { /* 忽略 */ }
 
+  // 导航滚动态（功能性，始终启用）
+  try { setupNavScroll(); } catch (e) { /* 忽略 */ }
+
   // 回到顶部按钮（功能性控件，始终启用，不依赖动效）
   try { setupBackToTop(); } catch (e) { /* 忽略 */ }
 
@@ -92,6 +95,25 @@
         toggle.setAttribute('aria-expanded', 'false');
       }
     });
+  }
+
+
+  // 导航滚动态：滚动超过阈值后加深毛玻璃 + 发光底线
+  function setupNavScroll() {
+    var nav = document.querySelector('.site-nav');
+    if (!nav) return;
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        var y = window.scrollY || document.documentElement.scrollTop || 0;
+        nav.classList.toggle('scrolled', y > 24);
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 
   // 回到顶部：滚动超过一屏后浮现，点击平滑回顶（rAF 节流，零依赖）
