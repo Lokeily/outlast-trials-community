@@ -272,8 +272,6 @@ section{margin-top:30px}
 .site-foot a{color:var(--text-dim)}
 .edit-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--text-dim);border:1px solid var(--border);border-radius:8px;padding:4px 10px;transition:.15s}
 .edit-link:hover{color:var(--red-bright);border-color:rgba(226,55,43,.5);background:var(--panel)}
-.contrib{max-width:1100px;margin:0 auto 16px;text-align:center;font-size:13px;color:var(--text-dim);background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:10px;padding:10px 14px}
-.contrib a{font-weight:700}
 .legend{max-width:1100px;margin:18px auto 0;text-align:center;font-size:13px;color:var(--text-dim)}
 .legend b{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
@@ -521,7 +519,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 }
 .brand{filter:drop-shadow(0 0 14px rgba(226,55,43,.20))}
 
-.card,.col,.gridwrap,.ncard,.itcard,.reccol,.tips,.contrib,.pageguide a{
+.card,.col,.gridwrap,.ncard,.itcard,.reccol,.tips,.pageguide a{
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .card{
@@ -552,7 +550,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   border-color:rgba(226,55,43,.16);
 }
 
-.reccol,.tips,.ncard,.contrib{
+.reccol,.tips,.ncard{
   box-shadow:var(--shadow-1);
   border-color:rgba(226,55,43,.16);
 }
@@ -651,16 +649,6 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .callout svg{width:18px;height:18px;vertical-align:-4px;margin-right:6px;color:var(--amber)}
 .ncard{transition:transform .18s var(--ease),border-color .15s var(--ease),box-shadow .18s var(--ease)}
 .ncard:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(226,55,43,.2)}
-
-/* ── 增强层 · 社区共建横幅图标（emoji→SVG 收尾） ── */
-.contrib > svg.c-ico{
-  display:inline-block;
-  width:1.1em;height:1.1em;
-  vertical-align:-.16em;
-  margin-right:.4em;
-  color:var(--red);
-  flex:none;
-}
 
 /* ── 增强层 · 全站内联图标（emoji→SVG 统一） ── */
 .ico-i{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;flex:0 0 auto;overflow:visible}
