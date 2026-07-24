@@ -16,6 +16,9 @@
   // 移动端汉堡菜单（与动效无关，始终启用）
   try { setupMobileMenu(); } catch (e) { /* 忽略 */ }
 
+  // 回到顶部按钮（功能性控件，始终启用，不依赖动效）
+  try { setupBackToTop(); } catch (e) { /* 忽略 */ }
+
   // 装备图鉴筛选（与动效无关，始终启用）
   try { setupEquipFilter(); } catch (e) { /* 忽略 */ }
 
@@ -89,6 +92,31 @@
         toggle.setAttribute('aria-expanded', 'false');
       }
     });
+  }
+
+  // 回到顶部：滚动超过一屏后浮现，点击平滑回顶（rAF 节流，零依赖）
+  function setupBackToTop() {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'to-top';
+    btn.setAttribute('aria-label', '回到顶部');
+    btn.textContent = '↑';
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.body.appendChild(btn);
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        var y = window.scrollY || document.documentElement.scrollTop || 0;
+        btn.classList.toggle('show', y > 600);
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 
   // 装备图鉴筛选：每个板块各自独立的筛选条，互不干扰。
