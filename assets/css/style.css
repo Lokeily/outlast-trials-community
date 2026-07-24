@@ -269,8 +269,18 @@ section{margin-top:30px}
 .news-list .sub2{list-style:none;margin:6px 0 0;padding-left:16px}
 .news-list .sub2 li::before{background:var(--text-mute)}
 
-/* ===== Giscus / 页脚 / 编辑链接 ===== */
+/* ===== 评论区（Twikoo）/ 页脚 ===== */
 #giscus-comments{margin-top:34px;min-height:120px}
+/* Twikoo 暗色主题：覆盖官方 --tk-color-* 变量，融入全站血红暗黑风 */
+#tcomment{margin-top:8px}
+#tcomment .tk-main,
+.twikoo{
+  --tk-color-1:#ff4a3a;--tk-color-2:#ff4a3a;
+  --tk-color-3:transparent;--tk-color-4:rgba(18,20,22,.62);
+  --tk-color-5:#a7a099;--tk-color-6:#6c6962;--tk-color-7:#8a857d;
+  --tk-color-8:#e9e3dc;--tk-color-9:rgba(226,55,43,.22);--tk-color-10:rgba(0,0,0,.45);
+  --tk-main-color:#ff4a3a;
+}
 .site-foot{margin-top:50px;border-top:1px solid var(--border);padding:22px 18px;text-align:center;color:var(--text-mute);font-size:12px;line-height:1.9}
 .site-foot a{color:var(--text-dim)}
 .legend{max-width:1100px;margin:18px auto 0;text-align:center;font-size:13px;color:var(--text-dim)}

@@ -1,17 +1,20 @@
 /* 逃生试炼社区 · 动效与性能
  * - 入场淡入：所有设备都保留（移动端 CSS 已降级为仅淡入、不位移，轻量不卡）
  * - 跑马灯旋转 / 毛玻璃 / 光泽扫过：仅 PC 启用，移动端静止或关闭（见 style.css）
- * - Giscus 评论按需懒加载，移除首屏重型 iframe
+ * - Twikoo 评论（匿名/QQ/微信，腾讯云开发后端）按需懒加载，国内可用、无需 GitHub
  * prefers-reduced-motion 下全部静止 */
 (function () {
   var doc = document.documentElement;
   doc.classList.add('js');
 
+  // Twikoo 腾讯云开发环境 ID：在腾讯云开发控制台创建环境后获取，替换下面的占位符
+  var TWIKOO_ENV_ID = 'YOUR_TENCENT_CLOUDBASE_ENV_ID';
+
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
 
   // 评论懒加载（各端都做，省首屏开销）；包一层 try 防止异常阻断下方动画
-  try { setupGiscus(); } catch (e) { /* 忽略，不影响页面 */ }
+  try { setupTwikoo(); } catch (e) { /* 忽略，不影响页面 */ }
 
   // 移动端汉堡菜单（与动效无关，始终启用）
   try { setupMobileMenu(); } catch (e) { /* 忽略 */ }
@@ -48,29 +51,25 @@
     }
   }
 
-  function setupGiscus() {
-    var mount = document.querySelector('.giscus[data-giscus-lazy]');
+  // Twikoo 评论：匿名或 QQ/微信登录，腾讯云开发（CloudBase）后端，国内顺畅、无需 GitHub。
+  // 后端环境 ID 见上方 TWIKOO_ENV_ID（部署步骤见仓库 README）。
+  function setupTwikoo() {
+    var mount = document.getElementById('tcomment');
     if (!mount) return;
-    if (!('IntersectionObserver' in window)) { loadGiscus(mount); return; }
+    if (!('IntersectionObserver' in window)) { initTwikoo(); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { loadGiscus(mount); io.disconnect(); }
+        if (e.isIntersecting) { initTwikoo(); io.disconnect(); }
       });
     }, { rootMargin: '600px 0px' });
     io.observe(mount);
   }
-  function loadGiscus(mount) {
-    var s = document.createElement('script');
-    s.src = 'https://giscus.app/client.js';
-    s.async = true;
-    s.crossOrigin = 'anonymous';
-    var attrs = ['repo', 'repo-id', 'category', 'category-id', 'mapping', 'term', 'strict',
-                 'reactions-enabled', 'emit-metadata', 'input-position', 'theme', 'lang'];
-    attrs.forEach(function (a) {
-      var v = mount.getAttribute('data-' + a);
-      if (v !== null && v !== '') s.setAttribute('data-' + a, v);
-    });
-    mount.appendChild(s);
+  function initTwikoo() {
+    var mount = document.getElementById('tcomment');
+    if (!mount || mount.dataset.ready) return;
+    if (!window.twikoo) { window.addEventListener('load', initTwikoo); return; }
+    mount.dataset.ready = '1';
+    window.twikoo.init({ envId: TWIKOO_ENV_ID, el: '#tcomment', lang: 'zh-CN' });
   }
   function setupMobileMenu() {
     var nav = document.querySelector('.site-nav');
