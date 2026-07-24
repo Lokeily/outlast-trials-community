@@ -248,30 +248,53 @@ section{margin-top:30px}
 .legend{max-width:1100px;margin:18px auto 0;text-align:center;font-size:13px;color:var(--text-dim)}
 .legend b{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-/* ===== 强化剂图鉴（Amp Codex） ===== */
+/* ===== 游戏内装备图鉴（Equipment Codex） ===== */
 .ampboard{max-width:1100px;margin:0 auto}
-.ampsec{margin-top:30px}
-.ampsec .ampbar{display:flex;align-items:center;gap:10px;margin:6px 0 2px}
-.ampsec .ampbar img{width:140px;height:auto;border-radius:8px}
-.ampsec .ampbar .tag{font-weight:800;font-size:15px;color:var(--text-dim);letter-spacing:.05em}
-.ampgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px;margin-top:14px;content-visibility:auto;contain-intrinsic-size:auto 560px}
-.ampcard{position:relative;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:12px;padding:14px 12px 13px;text-align:center;transition:transform .18s ease,border-color .15s ease,box-shadow .18s ease}
-.ampcard:hover{transform:translateY(-3px);border-color:rgba(226,55,43,.55);box-shadow:0 14px 34px rgba(226,55,43,.2)}
-.ampcard .ic{width:58px;height:58px;object-fit:contain;transition:transform .2s ease}
-.ampcard:hover .ic{transform:scale(1.08)}
-.ampcard .cn{font-weight:700;font-size:14.5px;color:var(--text);margin-top:9px}
-.ampcard .en{font-size:9.5px;color:#7c8694;margin-top:2px;letter-spacing:.04em}
-.ampcard .desc{font-size:11.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
-.ampcard .pill{position:absolute;top:-9px;right:-7px;font-size:10px;font-weight:800;padding:2px 8px;border-radius:8px;line-height:1.2;white-space:nowrap}
-.ampcard .pill.core{background:var(--accent-grad);color:#fff}
-.ampcard .pill.rec{background:rgba(63,185,80,.16);color:#5fd07a;border:1px solid rgba(63,185,80,.5)}
+.ampsec{margin-top:32px}
+.ampsec:first-of-type{margin-top:24px}
+.ampgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:14px;margin-top:14px;align-items:stretch}
+/* 装备卡：内联徽章，绝不使用会溢出裁切的绝对定位 */
+.itcard{display:flex;flex-direction:column;align-items:center;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:12px;padding:13px 12px 14px;text-align:center;transition:transform .18s ease,border-color .15s ease,box-shadow .18s ease}
+.itcard:hover{transform:translateY(-3px);border-color:rgba(226,55,43,.55);box-shadow:0 14px 34px rgba(226,55,43,.2)}
+.itcard .ic{width:54px;height:54px;object-fit:contain;transition:transform .2s ease;flex:0 0 auto}
+.itcard:hover .ic{transform:scale(1.08)}
+.itcard .glyph{font-size:34px;line-height:1;flex:0 0 auto;margin-bottom:2px}
+.itcard .cn{font-weight:700;font-size:14.5px;color:var(--text);margin-top:8px}
+.itcard .en{font-size:9.5px;color:#7c8694;margin-top:2px;letter-spacing:.04em}
+.itcard .desc{font-size:11.5px;color:var(--text-dim);margin-top:8px;line-height:1.55}
+/* 徽章行：正常流内联，永不溢出裁切 */
+.badges{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:8px;min-height:0}
+.badge{font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;line-height:1.3;white-space:nowrap;border:1px solid transparent}
+.badge.core{background:var(--accent-grad);color:#fff}
+.badge.rec{background:rgba(63,185,80,.16);color:#5fd07a;border-color:rgba(63,185,80,.5)}
+.badge.bnew{background:rgba(78,161,255,.16);color:#7cc4ff;border-color:rgba(78,161,255,.5)}
+.badge.bvet{background:rgba(188,140,255,.16);color:#c9a8ff;border-color:rgba(188,140,255,.5)}
 .ampnote{max-width:1100px;margin:18px auto 0;text-align:center;font-size:12px;color:var(--text-mute)}
 .ampnote b{color:var(--text-dim)}
+
+/* 推荐分类（新手 / 老玩家） */
+.recwrap{max-width:1100px;margin:14px auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.reccol{background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.reccol.new{border-top:3px solid #4ea1ff}
+.reccol.vet{border-top:3px solid #bc8cff}
+.reccol h3{font-size:16px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.reccol.new h3{color:#7cc4ff}
+.reccol.vet h3{color:#c9a8ff}
+.reccol .rsub{font-size:12px;color:var(--text-dim);margin:0 0 12px}
+.reclist{list-style:none;display:flex;flex-direction:column;gap:9px}
+.reclist li{font-size:12.5px;color:var(--text-dim);line-height:1.55;padding-left:14px;position:relative}
+.reclist li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--red-bright)}
+.reclist li b{color:var(--text)}
+.reclist .tag{display:inline-block;font-size:10px;font-weight:800;padding:0 6px;border-radius:6px;margin-right:5px;vertical-align:1px}
+.reclist .tag.amp{background:rgba(226,55,43,.16);color:#ff8a7e}
+.reclist .tag.rig{background:rgba(78,161,255,.16);color:#7cc4ff}
+.reclist .tag.pre{background:rgba(63,185,80,.16);color:#5fd07a}
 
 /* ===== 响应式 ===== */
 @media (max-width:900px){
   .anns{grid-template-columns:1fr}
   .anns.roadmap{grid-template-columns:1fr}
+  .recwrap{grid-template-columns:1fr}
   .tipgrid{grid-template-columns:1fr}
   .hero h1{font-size:32px}
 }
