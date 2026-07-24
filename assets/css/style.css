@@ -286,6 +286,7 @@ section{margin-top:30px}
 /* 处方分阶（等级一 / 二 / 三） */
 .tierblock{margin-top:22px}
 .tierblock:first-of-type{margin-top:6px}
+.tierblock.hide{display:none !important}
 .tierhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .tierhead .trib{width:118px;height:30px;object-fit:contain;flex:0 0 auto}
 .tierhead span{font-weight:800;font-size:14px;color:var(--text-dim);letter-spacing:.04em}

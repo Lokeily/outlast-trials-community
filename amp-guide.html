@@ -36,21 +36,102 @@
 
 <div class="contrib">📝 本页由社区共同维护 · 效果以游戏当前版本（第七赛季「坟场计划」）为准，发现错误？<a href="https://github.com/Lokeily/outlast-trials-community/edit/main/amp-guide.html" target="_blank" rel="noopener">点此提交修改 (Pull Request)</a></div>
 
-<div class="filterbar" id="eqFilter" role="group" aria-label="装备筛选">
-  <span class="flabel">筛选：</span>
-  <button type="button" class="fbtn active" data-filter="all">全部</button>
-  <button type="button" class="fbtn" data-filter="core">⭐ 核心</button>
-  <button type="button" class="fbtn" data-filter="new">🟢 新手推荐</button>
-  <button type="button" class="fbtn" data-filter="vet">🔵 老玩家推荐</button>
-  <span class="fhint">（也可直接点卡片上的徽章）</span>
-</div>
-
 <div class="ampboard">
+
+  <!-- ===== 处方 PRESCRIPTION（等级一 / 二 / 三，仅列首选） ===== -->
+  <section class="ampsec rxsec">
+    <h2 class="sectitle">处方 · PRESCRIPTION</h2>
+    <div class="secsub">门厅前台护士处购买的<b>永久技能解锁</b>（绿色 Voucher），分 <b>等级一 / 等级二 / 等级三</b> 三阶，前一阶全购后开放下一阶。下方仅列出社区公认的<b>首选</b>项，次要项可随版本与个人玩法自行补点。图标均为游戏内真实图标。</div>
+
+    <div class="filterbar" id="eqFilterRx" role="group" aria-label="处方筛选">
+      <span class="flabel">筛选：</span>
+      <button type="button" class="fbtn active" data-filter="all">全部</button>
+      <button type="button" class="fbtn" data-filter="tier1">等级一</button>
+      <button type="button" class="fbtn" data-filter="tier2">等级二</button>
+      <button type="button" class="fbtn" data-filter="tier3">等级三</button>
+    </div>
+
+    <div class="tierblock">
+      <div class="tierhead"><img class="trib" src="assets/icons/Rx_Tier1.webp" loading="lazy" decoding="async" alt="等级一"><span>等级一 · TIER 1</span></div>
+      <div class="ampgrid rxgrid">
+        <div class="itcard rxcard" data-tier="1"><img class="ic" src="assets/icons/Rx_Slide.webp" loading="lazy" decoding="async" alt="滑行" width="54" height="54"><div class="cn">滑行</div><div class="en">SLIDE</div><div class="desc">移动中按蹲下可滑铲，快速脱离与走位更顺手。</div></div>
+        <div class="itcard rxcard" data-tier="1"><img class="ic" src="assets/icons/Rx_Regeneration.webp" loading="lazy" decoding="async" alt="再生" width="54" height="54"><div class="cn">再生</div><div class="en">REGENERATION</div><div class="desc">脱战后短暂延迟自动回少量血，容错更高。</div></div>
+        <div class="itcard rxcard" data-tier="1"><img class="ic" src="assets/icons/Rx_Instantuse.webp" loading="lazy" decoding="async" alt="即时使用" width="54" height="54"><div class="cn">即时使用</div><div class="en">INSTANT USE</div><div class="desc">对准物品按住左键直接使用，而非收入背包，省一步操作。</div></div>
+        <div class="itcard rxcard" data-tier="1"><img class="ic" src="assets/icons/Rx_RunAndSmashDoor.webp" loading="lazy" decoding="async" alt="跑步撞门" width="54" height="54"><div class="cn">跑步撞门</div><div class="en">RUN &amp; SMASH</div><div class="desc">奔跑中可直接撞开门，锁门会被砸裂，节奏更快。</div></div>
+        <div class="itcard rxcard" data-tier="1"><img class="ic" src="assets/icons/Rx_HardKick.webp" loading="lazy" decoding="async" alt="踹击救援" width="54" height="54"><div class="cn">踹击救援</div><div class="en">HARD KICK</div><div class="desc">可踹开抓你朋友的敌人、阻止其处决队友，组队神技。</div></div>
+        <div class="itcard rxcard" data-tier="1"><img class="ic" src="assets/icons/Rx_StayOfExecution.webp" loading="lazy" decoding="async" alt="阻止处决" width="54" height="54"><div class="cn">阻止处决</div><div class="en">STAY OF EXECUTION</div><div class="desc">在队友将被处决时踹击打断，配合踹击救援双重保人。</div></div>
+        <div class="itcard rxcard" data-tier="1"><img class="ic" src="assets/icons/Rx_SelfDefenseTechnique.webp" loading="lazy" decoding="async" alt="自卫术" width="54" height="54"><div class="cn">自卫术</div><div class="en">SELF DEFENSE</div><div class="desc">被扑倒时用瓶 / 砖快速挣脱，反制小怪扑击。</div></div>
+      </div>
+    </div>
+
+    <div class="tierblock">
+      <div class="tierhead"><img class="trib" src="assets/icons/Rx_Tier2.webp" loading="lazy" decoding="async" alt="等级二"><span>等级二 · TIER 2</span></div>
+      <div class="ampgrid rxgrid">
+        <div class="itcard rxcard" data-tier="2"><img class="ic" src="assets/icons/Rx_ExpandedInventory.webp" loading="lazy" decoding="async" alt="扩充背包" width="54" height="54"><div class="cn">扩充背包</div><div class="en">EXPANDED INVENTORY</div><div class="desc">背包格 +1，总栏位达 4，携带空间更宽裕。</div></div>
+        <div class="itcard rxcard" data-tier="2"><img class="ic" src="assets/icons/Rx_DoorBasher.webp" loading="lazy" decoding="async" alt="重击手" width="54" height="54"><div class="cn">重击手</div><div class="en">DOOR BASHER</div><div class="desc">锁门仅需 2 击砸开，配合「爆破大师」效率拉满。</div></div>
+        <div class="itcard rxcard" data-tier="2"><img class="ic" src="assets/icons/Rx_SpeedBoost.webp" loading="lazy" decoding="async" alt="速度爆发" width="54" height="54"><div class="cn">速度爆发</div><div class="en">SPEED BOOST</div><div class="desc">提升奔跑速度，跑图与脱离更高效。</div></div>
+        <div class="itcard rxcard" data-tier="2"><img class="ic" src="assets/icons/Rx_Endurance.webp" loading="lazy" decoding="async" alt="耐力" width="54" height="54"><div class="cn">耐力</div><div class="en">ENDURANCE</div><div class="desc">降低奔跑耐力消耗，长线机动更持久。</div></div>
+        <div class="itcard rxcard" data-tier="2"><img class="ic" src="assets/icons/Rx_Athlete.webp" loading="lazy" decoding="async" alt="运动员" width="54" height="54"><div class="cn">运动员</div><div class="en">ATHLETE</div><div class="desc">提升最大耐力上限。</div></div>
+        <div class="itcard rxcard" data-tier="2"><img class="ic" src="assets/icons/Rx_Gymnast.webp" loading="lazy" decoding="async" alt="跑酷" width="54" height="54"><div class="cn">跑酷</div><div class="en">GYMNAST</div><div class="desc">降低跳跃与攀爬的耐力消耗。</div></div>
+      </div>
+    </div>
+
+    <div class="tierblock">
+      <div class="tierhead"><img class="trib" src="assets/icons/Rx_Tier3.webp" loading="lazy" decoding="async" alt="等级三"><span>等级三 · TIER 3</span></div>
+      <div class="ampgrid rxgrid">
+        <div class="itcard rxcard" data-tier="3"><img class="ic" src="assets/icons/Rx_AdvancedRegeneration.webp" loading="lazy" decoding="async" alt="进阶再生" width="54" height="54"><div class="cn">进阶再生</div><div class="en">ADVANCED REGEN</div><div class="desc">生命再生触发更快，持续作战回血更及时。</div></div>
+        <div class="itcard rxcard" data-tier="3"><img class="ic" src="assets/icons/Rx_StaminaRecovery.webp" loading="lazy" decoding="async" alt="耐力恢复" width="54" height="54"><div class="cn">耐力恢复</div><div class="en">STAMINA RECOVERY</div><div class="desc">加速耐力恢复，跑动更持久。</div></div>
+        <div class="itcard rxcard" data-tier="3"><img class="ic" src="assets/icons/Rx_DeepBreaths.webp" loading="lazy" decoding="async" alt="深呼吸" width="54" height="54"><div class="cn">深呼吸</div><div class="en">DEEP BREATHS</div><div class="desc">加速疲惫（Exhaustion）恢复，连续行动后更快回神。</div></div>
+        <div class="itcard rxcard" data-tier="3"><img class="ic" src="assets/icons/Rx_Revitalize.webp" loading="lazy" decoding="async" alt="重生" width="54" height="54"><div class="cn">重生</div><div class="en">REVITALIZE</div><div class="desc">单人试验中注射器与复活均回满生命。</div></div>
+        <div class="itcard rxcard" data-tier="3"><img class="ic" src="assets/icons/Rx_Antiambush.webp" loading="lazy" decoding="async" alt="抗伏击" width="54" height="54"><div class="cn">抗伏击</div><div class="en">ANTI-AMBUSH</div><div class="desc">向藏身的敌人投掷物可将其逼出，破解伏击点位。</div></div>
+        <div class="itcard rxcard" data-tier="3"><img class="ic" src="assets/icons/Rx_Medic.webp" loading="lazy" decoding="async" alt="医疗兵" width="54" height="54"><div class="cn">医疗兵</div><div class="en">MEDIC</div><div class="desc">扶起与复活队友的速度更快，团队容错再升级。</div></div>
+        <div class="itcard rxcard" data-tier="3"><img class="ic" src="assets/icons/Rx_Resistance.webp" loading="lazy" decoding="async" alt="抗性" width="54" height="54"><div class="cn">抗性</div><div class="en">RESISTANCE</div><div class="desc">更快挣脱陷阱与被擒抱，应对控制型敌人更从容。</div></div>
+      </div>
+    </div>
+    <div class="ampnote">处方是<b>永久解锁</b>、一次购买长期生效。贴吧老玩家共识：优先把<b>处方与技能装置</b>收益吃满，再回头补强化剂——先把常用动作（滑行、再生、踹击救援、跑步撞门）点满，再补等级二 / 三的效率项。次要项（如冲刺不耗耐、电池延长、重训）可视打法自行补齐。</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 技能装置 RIG ===== -->
+  <section class="ampsec">
+    <h2 class="sectitle">技能装置 · RIG</h2>
+    <div class="secsub">带入试验的装备技能，在门厅左侧车间购买与升级（绿色 Voucher）。每局带一个；第七赛季起支持「套装预设」存档多套。下列图标均为<b>游戏内真实图标</b>，徽章含义同强化剂。</div>
+
+    <div class="filterbar" id="eqFilterRig" role="group" aria-label="技能装置筛选">
+      <span class="flabel">筛选：</span>
+      <button type="button" class="fbtn active" data-filter="all">全部</button>
+      <button type="button" class="fbtn" data-filter="core">⭐ 核心</button>
+      <button type="button" class="fbtn" data-filter="new">🟢 新手推荐</button>
+      <button type="button" class="fbtn" data-filter="vet">🔵 老玩家推荐</button>
+    </div>
+
+    <div class="ampgrid">
+      <div class="itcard"><div class="badges"><span class="badge core">核心</span><span class="badge bnew">新手推荐</span></div><img class="ic" src="assets/icons/Rig_Stun.webp" loading="lazy" decoding="async" alt="眩晕" width="54" height="54"><div class="cn">眩晕 Stun</div><div class="en">STUN RIG</div><div class="desc">投掷式电击装置，短暂麻痹 / 眩晕敌人；可升级扩大范围、延长眩晕、触电为队友回能等。被追时脱身好用。</div></div>
+      <div class="itcard"><div class="badges"><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Blind.webp" loading="lazy" decoding="async" alt="致盲" width="54" height="54"><div class="cn">致盲 Blind</div><div class="en">BLIND RIG</div><div class="desc">地雷式烟雾装置，敌人触发后释放致盲烟雾并减速；可升级范围、延长、触发后获得肾上腺素加速。</div></div>
+      <div class="itcard"><div class="badges"><span class="badge core">核心</span><span class="badge bnew">新手推荐</span></div><img class="ic" src="assets/icons/Rig_Heal.webp" loading="lazy" decoding="async" alt="治疗" width="54" height="54"><div class="cn">治疗 Heal</div><div class="en">HEAL RIG</div><div class="desc">释放治疗气体，为自己与附近队友回血；可升级静音、延长、解毒、减速敌人。团队保命核心。</div></div>
+      <div class="itcard"><div class="badges"><span class="badge bnew">新手推荐</span><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Xray.webp" loading="lazy" decoding="async" alt="透视" width="54" height="54"><div class="cn">透视 X-Ray</div><div class="en">X-RAY RIG</div><div class="desc">透视墙壁看见敌人与物件并可标记；可升级让队友共享情报、显示物资 / 机密、回充夜视电量。</div></div>
+      <div class="itcard"><div class="badges"><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Barricade.webp" loading="lazy" decoding="async" alt="路障" width="54" height="54"><div class="cn">路障 Barricade</div><div class="en">BARRICADE RIG</div><div class="desc">部署可移动掩体 / 路障，封锁通道或制造临时防线，控场与保护点位利器。</div></div>
+      <div class="itcard"><div class="badges"><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Jammer.webp" loading="lazy" decoding="async" alt="干扰器" width="54" height="54"><div class="cn">干扰器 Jammer</div><div class="en">JAMMER RIG</div><div class="desc">无线干扰装置，瘫痪敌方摄像头 / 门禁等设备；入侵与潜行流好搭档。</div></div>
+    </div>
+    <div class="ampnote">标注 <b>核心 / 推荐</b> 的为社区高频选择，不代表唯一答案；技能装置的具体升级与数值随版本（第七赛季「坟场计划」及后续补丁）调整，以游戏内为准。图标取自官方游戏资源。</div>
+  </section>
+
+  <div class="divider"></div>
 
   <!-- ===== 强化剂 AMP ===== -->
   <section class="ampsec">
     <h2 class="sectitle">强化剂 · AMP</h2>
     <div class="secsub">角色永久成长，10 级解锁、用绿色 Voucher 向二楼 Dorris 购买；按 技能 / 药物 / 工具 三类。徽章：⭐核心 · 🟢新手推荐 · 🔵老玩家推荐</div>
+
+    <div class="filterbar" id="eqFilterAmp" role="group" aria-label="强化剂筛选">
+      <span class="flabel">筛选：</span>
+      <button type="button" class="fbtn active" data-filter="all">全部</button>
+      <button type="button" class="fbtn" data-filter="core">⭐ 核心</button>
+      <button type="button" class="fbtn" data-filter="new">🟢 新手推荐</button>
+      <button type="button" class="fbtn" data-filter="vet">🔵 老玩家推荐</button>
+    </div>
+
     <div class="ampgrid">
       <!-- 技能 SKILL -->
       <div class="itcard"><div class="badges"><span class="badge bnew">新手推荐</span></div><img class="ic" src="assets/icons/Amp_HideAndBreathe_New.webp" loading="lazy" alt="隐藏并呼吸" decoding="async" width="54" height="54"><div class="cn">隐藏并呼吸</div><div class="en">HIDE &amp; BREATHE</div><div class="desc">躲藏在掩体中时持续恢复耐力。</div></div>
@@ -85,70 +166,6 @@
       <div class="itcard"><img class="ic" src="assets/icons/Amp_Backpack_New.webp" loading="lazy" alt="背包" decoding="async" width="54" height="54"><div class="cn">背包</div><div class="en">BACKPACK</div><div class="desc">可额外携带一个道具。</div></div>
       <div class="itcard"><div class="badges"><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Amp_ShortCircuit.webp" loading="lazy" alt="短路" decoding="async" width="54" height="54"><div class="cn">短路</div><div class="en">SHORT CIRCUIT</div><div class="desc">更快使电子门禁、摄像头等设备失效。</div></div>
     </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ===== 技能装置 RIG ===== -->
-  <section class="ampsec">
-    <h2 class="sectitle">技能装置 · RIG</h2>
-    <div class="secsub">带入试验的装备技能，在门厅左侧车间购买与升级（绿色 Voucher）。每局带一个；第七赛季起支持「套装预设」存档多套。下列图标均为<b>游戏内真实图标</b>，徽章含义同强化剂。</div>
-    <div class="ampgrid">
-      <div class="itcard"><div class="badges"><span class="badge core">核心</span><span class="badge bnew">新手推荐</span></div><img class="ic" src="assets/icons/Rig_Stun.webp" loading="lazy" decoding="async" alt="眩晕" width="54" height="54"><div class="cn">眩晕 Stun</div><div class="en">STUN RIG</div><div class="desc">投掷式电击装置，短暂麻痹 / 眩晕敌人；可升级扩大范围、延长眩晕、触电为队友回能等。被追时脱身好用。</div></div>
-      <div class="itcard"><div class="badges"><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Blind.webp" loading="lazy" decoding="async" alt="致盲" width="54" height="54"><div class="cn">致盲 Blind</div><div class="en">BLIND RIG</div><div class="desc">地雷式烟雾装置，敌人触发后释放致盲烟雾并减速；可升级范围、延长、触发后获得肾上腺素加速。</div></div>
-      <div class="itcard"><div class="badges"><span class="badge core">核心</span><span class="badge bnew">新手推荐</span></div><img class="ic" src="assets/icons/Rig_Heal.webp" loading="lazy" decoding="async" alt="治疗" width="54" height="54"><div class="cn">治疗 Heal</div><div class="en">HEAL RIG</div><div class="desc">释放治疗气体，为自己与附近队友回血；可升级静音、延长、解毒、减速敌人。团队保命核心。</div></div>
-      <div class="itcard"><div class="badges"><span class="badge bnew">新手推荐</span><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Xray.webp" loading="lazy" decoding="async" alt="透视" width="54" height="54"><div class="cn">透视 X-Ray</div><div class="en">X-RAY RIG</div><div class="desc">透视墙壁看见敌人与物件并可标记；可升级让队友共享情报、显示物资 / 机密、回充夜视电量。</div></div>
-      <div class="itcard"><div class="badges"><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Barricade.webp" loading="lazy" decoding="async" alt="路障" width="54" height="54"><div class="cn">路障 Barricade</div><div class="en">BARRICADE RIG</div><div class="desc">部署可移动掩体 / 路障，封锁通道或制造临时防线，控场与保护点位利器。</div></div>
-      <div class="itcard"><div class="badges"><span class="badge bvet">老玩家推荐</span></div><img class="ic" src="assets/icons/Rig_Jammer.webp" loading="lazy" decoding="async" alt="干扰器" width="54" height="54"><div class="cn">干扰器 Jammer</div><div class="en">JAMMER RIG</div><div class="desc">无线干扰装置，瘫痪敌方摄像头 / 门禁等设备；入侵与潜行流好搭档。</div></div>
-    </div>
-    <div class="ampnote">标注 <b>核心 / 推荐</b> 的为社区高频选择，不代表唯一答案；技能装置的具体升级与数值随版本（第七赛季「坟场计划」及后续补丁）调整，以游戏内为准。图标取自官方游戏资源。</div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ===== 处方 PRESCRIPTION（等级一 / 二 / 三，仅列首选） ===== -->
-  <section class="ampsec rxsec">
-    <h2 class="sectitle">处方 · PRESCRIPTION</h2>
-    <div class="secsub">门厅前台护士处购买的<b>永久技能解锁</b>（绿色 Voucher），分 <b>等级一 / 等级二 / 等级三</b> 三阶，前一阶全购后开放下一阶。下方仅列出社区公认的<b>首选</b>项，次要项可随版本与个人玩法自行补点。图标均为游戏内真实图标。</div>
-
-    <div class="tierblock">
-      <div class="tierhead"><img class="trib" src="assets/icons/Rx_Tier1.webp" loading="lazy" decoding="async" alt="等级一"><span>等级一 · TIER 1</span></div>
-      <div class="ampgrid rxgrid">
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Slide.webp" loading="lazy" decoding="async" alt="滑行" width="54" height="54"><div class="cn">滑行</div><div class="en">SLIDE</div><div class="desc">移动中按蹲下可滑铲，快速脱离与走位更顺手。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Regeneration.webp" loading="lazy" decoding="async" alt="再生" width="54" height="54"><div class="cn">再生</div><div class="en">REGENERATION</div><div class="desc">脱战后短暂延迟自动回少量血，容错更高。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Instantuse.webp" loading="lazy" decoding="async" alt="即时使用" width="54" height="54"><div class="cn">即时使用</div><div class="en">INSTANT USE</div><div class="desc">对准物品按住左键直接使用，而非收入背包，省一步操作。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_RunAndSmashDoor.webp" loading="lazy" decoding="async" alt="跑步撞门" width="54" height="54"><div class="cn">跑步撞门</div><div class="en">RUN &amp; SMASH</div><div class="desc">奔跑中可直接撞开门，锁门会被砸裂，节奏更快。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_HardKick.webp" loading="lazy" decoding="async" alt="踹击救援" width="54" height="54"><div class="cn">踹击救援</div><div class="en">HARD KICK</div><div class="desc">可踹开抓你朋友的敌人、阻止其处决队友，组队神技。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_StayOfExecution.webp" loading="lazy" decoding="async" alt="阻止处决" width="54" height="54"><div class="cn">阻止处决</div><div class="en">STAY OF EXECUTION</div><div class="desc">在队友将被处决时踹击打断，配合踹击救援双重保人。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_SelfDefenseTechnique.webp" loading="lazy" decoding="async" alt="自卫术" width="54" height="54"><div class="cn">自卫术</div><div class="en">SELF DEFENSE</div><div class="desc">被扑倒时用瓶 / 砖快速挣脱，反制小怪扑击。</div></div>
-      </div>
-    </div>
-
-    <div class="tierblock">
-      <div class="tierhead"><img class="trib" src="assets/icons/Rx_Tier2.webp" loading="lazy" decoding="async" alt="等级二"><span>等级二 · TIER 2</span></div>
-      <div class="ampgrid rxgrid">
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_ExpandedInventory.webp" loading="lazy" decoding="async" alt="扩充背包" width="54" height="54"><div class="cn">扩充背包</div><div class="en">EXPANDED INVENTORY</div><div class="desc">背包格 +1，总栏位达 4，携带空间更宽裕。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_DoorBasher.webp" loading="lazy" decoding="async" alt="重击手" width="54" height="54"><div class="cn">重击手</div><div class="en">DOOR BASHER</div><div class="desc">锁门仅需 2 击砸开，配合「爆破大师」效率拉满。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_SpeedBoost.webp" loading="lazy" decoding="async" alt="速度爆发" width="54" height="54"><div class="cn">速度爆发</div><div class="en">SPEED BOOST</div><div class="desc">提升奔跑速度，跑图与脱离更高效。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Endurance.webp" loading="lazy" decoding="async" alt="耐力" width="54" height="54"><div class="cn">耐力</div><div class="en">ENDURANCE</div><div class="desc">降低奔跑耐力消耗，长线机动更持久。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Athlete.webp" loading="lazy" decoding="async" alt="运动员" width="54" height="54"><div class="cn">运动员</div><div class="en">ATHLETE</div><div class="desc">提升最大耐力上限。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Gymnast.webp" loading="lazy" decoding="async" alt="跑酷" width="54" height="54"><div class="cn">跑酷</div><div class="en">GYMNAST</div><div class="desc">降低跳跃与攀爬的耐力消耗。</div></div>
-      </div>
-    </div>
-
-    <div class="tierblock">
-      <div class="tierhead"><img class="trib" src="assets/icons/Rx_Tier3.webp" loading="lazy" decoding="async" alt="等级三"><span>等级三 · TIER 3</span></div>
-      <div class="ampgrid rxgrid">
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_AdvancedRegeneration.webp" loading="lazy" decoding="async" alt="进阶再生" width="54" height="54"><div class="cn">进阶再生</div><div class="en">ADVANCED REGEN</div><div class="desc">生命再生触发更快，持续作战回血更及时。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_StaminaRecovery.webp" loading="lazy" decoding="async" alt="耐力恢复" width="54" height="54"><div class="cn">耐力恢复</div><div class="en">STAMINA RECOVERY</div><div class="desc">加速耐力恢复，跑动更持久。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_DeepBreaths.webp" loading="lazy" decoding="async" alt="深呼吸" width="54" height="54"><div class="cn">深呼吸</div><div class="en">DEEP BREATHS</div><div class="desc">加速疲惫（Exhaustion）恢复，连续行动后更快回神。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Revitalize.webp" loading="lazy" decoding="async" alt="重生" width="54" height="54"><div class="cn">重生</div><div class="en">REVITALIZE</div><div class="desc">单人试验中注射器与复活均回满生命。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Antiambush.webp" loading="lazy" decoding="async" alt="抗伏击" width="54" height="54"><div class="cn">抗伏击</div><div class="en">ANTI-AMBUSH</div><div class="desc">向藏身的敌人投掷物可将其逼出，破解伏击点位。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Medic.webp" loading="lazy" decoding="async" alt="医疗兵" width="54" height="54"><div class="cn">医疗兵</div><div class="en">MEDIC</div><div class="desc">扶起与复活队友的速度更快，团队容错再升级。</div></div>
-        <div class="itcard rxcard"><img class="ic" src="assets/icons/Rx_Resistance.webp" loading="lazy" decoding="async" alt="抗性" width="54" height="54"><div class="cn">抗性</div><div class="en">RESISTANCE</div><div class="desc">更快挣脱陷阱与被擒抱，应对控制型敌人更从容。</div></div>
-      </div>
-    </div>
-    <div class="ampnote">处方是<b>永久解锁</b>、一次购买长期生效。贴吧老玩家共识：优先把<b>处方与技能装置</b>收益吃满，再回头补强化剂——先把常用动作（滑行、再生、踹击救援、跑步撞门）点满，再补等级二 / 三的效率项。次要项（如冲刺不耗耐、电池延长、重训）可视打法自行补齐。</div>
   </section>
 
   <div class="divider"></div>

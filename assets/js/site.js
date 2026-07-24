@@ -91,55 +91,64 @@
     });
   }
 
-  // 装备图鉴筛选：全部 / 核心 / 新手推荐 / 老玩家推荐
+  // 装备图鉴筛选：每个板块各自独立的筛选条，互不干扰。
+  //  - 强化剂 / 技能装置：全部 / ⭐核心 / 🟢新手推荐 / 🔵老玩家推荐（按卡片徽章）
+  //  - 处方：全部 / 等级一 / 等级二 / 等级三（按 rxcard 的 data-tier）
   // 点筛选按钮或点卡片上的徽章均可触发；无结果也不留空白。
   function setupEquipFilter() {
-    var bar = document.getElementById('eqFilter');
-    if (!bar) return;
-    var btns = Array.prototype.slice.call(bar.querySelectorAll('.fbtn'));
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.ampgrid .itcard'));
-    if (!cards.length) return;
+    var bars = Array.prototype.slice.call(document.querySelectorAll('.filterbar'));
+    bars.forEach(function (bar) {
+      var section = bar.closest ? bar.closest('.ampsec') : null;
+      if (!section) return;
+      var btns = Array.prototype.slice.call(bar.querySelectorAll('.fbtn'));
+      if (!btns.length) return;
 
-    function matches(card, f) {
-      if (card.classList.contains('rxcard')) return true; // 处方按等级/首选独立展示，不参与核心·新手·老玩家筛选
-      if (f === 'all') return true;
-      var cls = f === 'core' ? 'core' : (f === 'new' ? 'bnew' : 'bvet');
-      return !!card.querySelector('.badge.' + cls);
-    }
-    function apply(f) {
-      // 1) 先显隐卡片
-      cards.forEach(function (c) {
-        c.classList.toggle('hide', !matches(c, f));
-      });
-      // 2) 整块无匹配则隐藏该板块标题，避免“空白一片”
-      document.querySelectorAll('.ampsec').forEach(function (s) {
-        var grid = s.querySelector('.ampgrid');
-        if (!grid) return; // 推荐分类 / 组合区始终保留
-        var any = grid.querySelector('.itcard:not(.hide)');
-        s.style.display = any ? '' : 'none';
-      });
-    }
-    btns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        btns.forEach(function (x) { x.classList.remove('active'); });
-        b.classList.add('active');
-        apply(b.getAttribute('data-filter'));
-      });
-    });
-    // 点卡片徽章 = 直接按该维度筛选
-    cards.forEach(function (c) {
-      var badges = c.querySelectorAll('.badge');
-      badges.forEach(function (bg) {
-        bg.addEventListener('click', function (e) {
-          e.stopPropagation();
-          var key = bg.classList.contains('core') ? 'core'
-                  : bg.classList.contains('bnew') ? 'new'
-                  : bg.classList.contains('bvet') ? 'vet' : null;
-          if (!key) return;
-          var btn = bar.querySelector('.fbtn[data-filter="' + key + '"]');
-          if (btn) btn.click();
+      var isRx = section.classList.contains('rxsec');
+      var cards = Array.prototype.slice.call(section.querySelectorAll('.itcard'));
+      if (!cards.length) return;
+
+      function matches(card, f) {
+        if (f === 'all') return true;
+        if (isRx) return ('tier' + card.getAttribute('data-tier')) === f; // 处方按等级筛选（data-tier="1|2|3" → "tier1|2|3"）
+        var cls = f === 'core' ? 'core' : (f === 'new' ? 'bnew' : 'bvet');
+        return !!card.querySelector('.badge.' + cls);
+      }
+      function apply(f) {
+        cards.forEach(function (c) {
+          c.classList.toggle('hide', !matches(c, f));
+        });
+        // 处方：整阶无匹配时隐藏该 tier 区块，避免“空标题”
+        if (isRx) {
+          section.querySelectorAll('.tierblock').forEach(function (tb) {
+            var any = tb.querySelector('.itcard:not(.hide)');
+            tb.classList.toggle('hide', !any);
+          });
+        }
+      }
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          btns.forEach(function (x) { x.classList.remove('active'); });
+          b.classList.add('active');
+          apply(b.getAttribute('data-filter'));
         });
       });
+      // 点卡片徽章 = 直接按该维度筛选（仅强化剂 / 技能装置有徽章）
+      if (!isRx) {
+        cards.forEach(function (c) {
+          var badges = c.querySelectorAll('.badge');
+          badges.forEach(function (bg) {
+            bg.addEventListener('click', function (e) {
+              e.stopPropagation();
+              var key = bg.classList.contains('core') ? 'core'
+                      : bg.classList.contains('bnew') ? 'new'
+                      : bg.classList.contains('bvet') ? 'vet' : null;
+              if (!key) return;
+              var btn = bar.querySelector('.fbtn[data-filter="' + key + '"]');
+              if (btn) btn.click();
+            });
+          });
+        });
+      }
     });
   }
 })();
