@@ -7,8 +7,11 @@
   var doc = document.documentElement;
   doc.classList.add('js');
 
-  // Twikoo 腾讯云开发环境 ID：在腾讯云开发控制台创建环境后获取，替换下面的占位符
-  var TWIKOO_ENV_ID = 'YOUR_TENCENT_CLOUDBASE_ENV_ID';
+  // Twikoo 环境 ID（后端无关，按所选后端填对应值即可）：
+  //   CloudBase    → 环境 ID 字符串，如 outlast-community-abc123
+  //   Netlify     → https://xxx.netlify.app/.netlify/functions/twikoo
+  //   HuggingFace → https://xxx-xxx.hf.space
+  var TWIKOO_ENV_ID = 'YOUR_TWIKOO_ENV_ID';
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
