@@ -325,6 +325,10 @@ section{margin-top:30px}
   .js .reveal{animation-name:riseSoft;animation-duration:.45s}
 }
 
+/* ===== 离屏跳过渲染：长页面重区块在视口外不绘制，降低滚动开销 ===== */
+/* contain-intrinsic-size 预留估算高度，避免滚动条跳动 */
+.col,.gridwrap,.news-item{content-visibility:auto;contain-intrinsic-size:auto 340px}
+
 /* 减少动效偏好：全部静止，保证可读与无障碍 */
 @media (prefers-reduced-motion: reduce){
   .js .reveal{opacity:1 !important;transform:none !important;transition:none !important}
