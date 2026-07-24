@@ -273,8 +273,6 @@ section{margin-top:30px}
 #giscus-comments{margin-top:34px;min-height:120px}
 .site-foot{margin-top:50px;border-top:1px solid var(--border);padding:22px 18px;text-align:center;color:var(--text-mute);font-size:12px;line-height:1.9}
 .site-foot a{color:var(--text-dim)}
-.edit-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--text-dim);border:1px solid var(--border);border-radius:8px;padding:4px 10px;transition:.15s}
-.edit-link:hover{color:var(--red-bright);border-color:rgba(226,55,43,.5);background:var(--panel)}
 .legend{max-width:1100px;margin:18px auto 0;text-align:center;font-size:13px;color:var(--text-dim)}
 .legend b{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
@@ -662,3 +660,13 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
 /* ── 增强层 · 图标描边统一 + 回到顶部 SVG 尺寸 ── */
 .to-top svg{width:20px;height:20px}
+
+/* ===== 维度色：用类替代内联 border-left/color，统一全站（2026-07-24） ===== */
+.ncard.dim-red{border-left:4px solid var(--red)}
+.ncard.dim-green{border-left:4px solid var(--green)}
+.ncard.dim-purple{border-left:4px solid #bc8cff}
+.ncard.dim-blue{border-left:4px solid #4ea1ff}
+.ntitle.dim-red{color:var(--red-bright)}
+.ntitle.dim-green{color:var(--green)}
+.ntitle.dim-purple{color:#bc8cff}
+.ntitle.dim-blue{color:#4ea1ff}
