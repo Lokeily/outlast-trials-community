@@ -14,8 +14,7 @@
 |------|------|------|
 | **社区首页** | [index.html](./index.html) | 站点入口，导航到各子页，底部有 Giscus 讨论区 |
 | **复生方案** | [rebirth.html](./rebirth.html) | 强化剂（Amps）配装规划；三大类各 3×3 九宫格，红框圈出推荐项，👍 = 社区推荐 |
-| **新手小贴士** | [newbie.html](./newbie.html) | 刚进游戏该先做什么、哪些坑别踩 |
-| **入坑须知** | [getting-started.html](./getting-started.html) | 游戏类型、平台、买前必看的基础认知 |
+| **新手小贴士** | [newbie.html](./newbie.html) | 新手培养体系方案、开局要点与避坑 |
 | **新闻资讯** | [news.html](./news.html) | 游戏简介 + 近期更新 / 补丁（官方英文译中文），追最新版本动态 |
 | **社区讨论** | [discuss.html](./discuss.html) | 全站统一的综合讨论板块；各内容页底部另保留「当前页面内容的回复」 |
 

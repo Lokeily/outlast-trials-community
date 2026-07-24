@@ -27,8 +27,7 @@
 |------|------|----------|
 | 社区首页 | `index.html` | 站点入口、页面导航卡片、社区讨论区 |
 | 复生方案 | `rebirth.html` | 强化剂配装规划、3×3 九宫格、社区推荐 |
-| 新手小贴士 | `newbie.html` | 新手向经验与避坑 |
-| 入坑须知 | `getting-started.html` | 游戏类型、平台、买前基础认知 |
+| 新手小贴士 | `newbie.html` | 新手培养体系方案、开局要点与避坑 |
 
 ### 复生方案页关键 class 含义
 - `.cell.pick` / `.item.ok` / `.item.pick`：**红框 / 绿框 / 蓝框** = 已选 / 确定 / 二选一
@@ -83,7 +82,7 @@
 
 直接用浏览器打开 `index.html` 即可，离线也能看（图标已放在 `assets/icons/`）。
 
-若改的是 `rebirth.html`、`newbie.html` 或 `getting-started.html`，打开对应文件预览。
+若改的是 `rebirth.html` 或 `newbie.html`，打开对应文件预览。
 
 ---
 
