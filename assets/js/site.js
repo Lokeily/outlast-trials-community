@@ -101,6 +101,7 @@
     if (!cards.length) return;
 
     function matches(card, f) {
+      if (card.classList.contains('rxcard')) return true; // 处方按等级/首选独立展示，不参与核心·新手·老玩家筛选
       if (f === 'all') return true;
       var cls = f === 'core' ? 'core' : (f === 'new' ? 'bnew' : 'bvet');
       return !!card.querySelector('.badge.' + cls);

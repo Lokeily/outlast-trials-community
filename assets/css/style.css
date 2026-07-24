@@ -143,9 +143,9 @@ section{margin-top:30px}
 .badge.pick{background:var(--red-bright);color:#2a0604}
 .thumb{position:absolute;bottom:-2px;right:-2px;font-size:20px;z-index:5;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));transform:rotate(-15deg)}
 
-/* ===== 复生方案：九宫格 ===== */
-.boards{display:flex;gap:22px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
-.gridwrap{width:348px;max-width:100%;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+/* ===== 复生方案：九宫格（桌面三列同屏） ===== */
+.boards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto;align-items:start}
+.gridwrap{width:auto;max-width:100%;background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
 .ghead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .ghead .ribbon{width:150px}
 .ghead span{font-weight:700;font-size:15px;color:var(--text-dim)}
@@ -283,6 +283,14 @@ section{margin-top:30px}
 .badge{cursor:pointer}
 .ampempty{display:none;max-width:1100px;margin:10px auto 0;text-align:center;font-size:13px;color:var(--text-mute)}
 
+/* 处方分阶（等级一 / 二 / 三） */
+.tierblock{margin-top:22px}
+.tierblock:first-of-type{margin-top:6px}
+.tierhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tierhead .trib{width:118px;height:30px;object-fit:contain;flex:0 0 auto}
+.tierhead span{font-weight:800;font-size:14px;color:var(--text-dim);letter-spacing:.04em}
+.rxgrid{margin-top:0}
+
 /* 推荐分类（新手 / 老玩家） */
 .recwrap{max-width:1100px;margin:14px auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .reccol{background:rgba(26,28,30,.8);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
@@ -307,6 +315,7 @@ section{margin-top:30px}
   .anns.roadmap{grid-template-columns:1fr}
   .recwrap{grid-template-columns:1fr}
   .tipgrid{grid-template-columns:1fr}
+  .boards{grid-template-columns:1fr}
   .hero h1{font-size:32px}
 }
 @media (max-width:640px){
