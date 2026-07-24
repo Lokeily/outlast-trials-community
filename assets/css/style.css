@@ -643,3 +643,21 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 }
 .card .ico svg{width:24px;height:24px;stroke-width:1.8}
 .fc-icon svg{width:26px;height:26px;color:var(--red-bright)}
+
+
+/* discuss 共建板块：SVG 图标 + 卡片微交互（对齐全站升级） */
+.ncard .ntitle{display:flex;align-items:center;gap:9px}
+.ncard .ntitle svg{width:19px;height:19px;flex:0 0 auto}
+.callout svg{width:18px;height:18px;vertical-align:-4px;margin-right:6px;color:var(--amber)}
+.ncard{transition:transform .18s var(--ease),border-color .15s var(--ease),box-shadow .18s var(--ease)}
+.ncard:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(226,55,43,.2)}
+
+/* ── 增强层 · 社区共建横幅图标（emoji→SVG 收尾） ── */
+.contrib > svg.c-ico{
+  display:inline-block;
+  width:1.1em;height:1.1em;
+  vertical-align:-.16em;
+  margin-right:.4em;
+  color:var(--red);
+  flex:none;
+}
