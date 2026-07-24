@@ -72,6 +72,17 @@ img{max-width:100%}
 .nav-links a:hover{color:var(--text);background:var(--panel);border-color:var(--border-soft)}
 .nav-links a.active{color:#fff;background:var(--accent-grad);border-color:transparent;box-shadow:0 0 14px rgba(226,55,43,.4)}
 
+/* 移动端汉堡按钮（桌面隐藏，用 ☰ 图标避免空 span 在某些渲染器塌陷） */
+.menu-toggle{
+  display:none;align-items:center;justify-content:center;
+  width:40px;height:34px;
+  background:transparent;border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-size:18px;line-height:1;
+  cursor:pointer;transition:border-color .2s,background .2s
+}
+.menu-toggle:hover{border-color:rgba(226,55,43,.55);background:rgba(226,55,43,.10)}
+.site-nav.open .menu-toggle{color:var(--red-bright);border-color:rgba(226,55,43,.55)}
+
 /* ===== 容器 / 标题 ===== */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
 main{padding:30px 0}
@@ -264,10 +275,20 @@ section{margin-top:30px}
 }
 @media (max-width:640px){
   body{padding-bottom:24px}
-  .site-nav{justify-content:center;padding:10px 12px}
-  .brand{width:100%;text-align:center}
-  .nav-links{justify-content:center;width:100%}
-  .nav-links a{padding:6px 10px;font-size:13px}
+  .site-nav{justify-content:space-between;flex-wrap:nowrap;padding:10px 14px}
+  .brand{width:auto;text-align:left}
+  .menu-toggle{display:inline-flex}
+  .nav-links{
+    position:absolute;left:0;right:0;top:100%;
+    flex-direction:column;align-items:stretch;gap:0;width:auto;
+    padding:8px 14px 14px;
+    background:rgba(10,11,13,.96);
+    border-bottom:1px solid var(--border);
+    opacity:0;transform:translateY(-8px);pointer-events:none;
+    transition:opacity .25s ease,transform .25s ease
+  }
+  .site-nav.open .nav-links{opacity:1;transform:none;pointer-events:auto}
+  .nav-links a{padding:10px 14px;font-size:14px;border-radius:8px}
   .title{font-size:24px}
   .hero h1{font-size:27px}
   .col,.gridwrap{width:100%}

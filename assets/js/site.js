@@ -13,6 +13,9 @@
   // 评论懒加载（各端都做，省首屏开销）；包一层 try 防止异常阻断下方动画
   try { setupGiscus(); } catch (e) { /* 忽略，不影响页面 */ }
 
+  // 移动端汉堡菜单（与动效无关，始终启用）
+  try { setupMobileMenu(); } catch (e) { /* 忽略 */ }
+
   if (reduce) return; // 已开启"减少动态效果"则不再加任何进入动画
 
   // 进入动画：给内容块加 .reveal，CSS 动画会自动播放显形（不依赖第二个类，
@@ -59,5 +62,29 @@
       if (v !== null && v !== '') s.setAttribute('data-' + a, v);
     });
     mount.appendChild(s);
+  }
+  function setupMobileMenu() {
+    var nav = document.querySelector('.site-nav');
+    var toggle = document.querySelector('.menu-toggle');
+    if (!nav || !toggle) return;
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    var links = nav.querySelectorAll('.nav-links a');
+    links.forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!nav.contains(e.target)) {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
 })();
