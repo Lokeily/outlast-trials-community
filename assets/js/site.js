@@ -122,7 +122,7 @@
     btn.type = 'button';
     btn.className = 'to-top';
     btn.setAttribute('aria-label', '回到顶部');
-    btn.textContent = '↑';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/></svg>';
     btn.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -142,7 +142,7 @@
   }
 
   // 装备图鉴筛选：每个板块各自独立的筛选条，互不干扰。
-  //  - 强化剂 / 技能装置：全部 / ⭐核心 / 🟢新手推荐 / 🔵老玩家推荐（按卡片徽章）
+  //  - 强化剂 / 技能装置：全部 / 核心 / 新手推荐 / 老玩家推荐（按卡片徽章）
   //  - 处方：全部 / 等级一 / 等级二 / 等级三（按 rxcard 的 data-tier）
   // 点筛选按钮或点卡片上的徽章均可触发；无结果也不留空白。
   function setupEquipFilter() {
@@ -159,7 +159,7 @@
 
       function matches(card, f) {
         if (f === 'all') return true;
-        if (isRx) return ('tier' + card.getAttribute('data-tier')) === f; // 处方按等级筛选（data-tier="1|2|3" → "tier1|2|3"）
+        if (isRx) return ('tier' + card.getAttribute('data-tier')) === f; // 处方按等级筛选（data-tier="1|2|3" "tier1|2|3"）
         var cls = f === 'core' ? 'core' : (f === 'new' ? 'bnew' : 'bvet');
         return !!card.querySelector('.badge.' + cls);
       }
