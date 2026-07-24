@@ -486,3 +486,10 @@ section{margin-top:30px}
   .toc ol{grid-template-columns:1fr}
   .to-top{right:12px;bottom:12px;width:40px;height:40px}
 }
+
+/* ===== 键盘焦点可见（无障碍）：仅键盘导航时显示红色焦点环 ===== */
+:focus-visible{outline:2px solid var(--red-bright);outline-offset:2px}
+a:focus-visible,.btn:focus-visible,.fbtn:focus-visible,.to-top:focus-visible,
+.card:focus-visible,.menu-toggle:focus-visible,.edit-link:focus-visible{
+  outline:2px solid var(--red-bright);outline-offset:3px;border-radius:6px
+}
