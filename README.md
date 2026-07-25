@@ -4,9 +4,13 @@
 
 🌐 **在线访问：** https://lokeily.github.io/outlast-trials-community/
 
-![社区首页预览](preview.png)
+## 各页面截图（当前网站实拍）
 
-![复生方案预览](preview-rebirth.png)
+| <img src="assets/images/thumb-index.webp" width="280"> | <img src="assets/images/thumb-rebirth.webp" width="280"> | <img src="assets/images/thumb-amp.webp" width="280"> |
+| :--: | :--: | :--: |
+| 社区首页 | 复生方案 | 装备图鉴 |
+| <img src="assets/images/thumb-newbie.webp" width="280"> | <img src="assets/images/thumb-news.webp" width="280"> | <img src="assets/images/thumb-discuss.webp" width="280"> |
+| 新手小贴士 | 新闻资讯 | 社区讨论 |
 
 ## 网站有哪些板块
 
