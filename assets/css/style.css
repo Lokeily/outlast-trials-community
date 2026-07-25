@@ -270,7 +270,7 @@ section{margin-top:30px}
 .news-list .sub2 li::before{background:var(--text-mute)}
 
 /* ===== 评论区（Twikoo）/ 页脚 ===== */
-#giscus-comments{margin-top:34px;min-height:120px}
+#comments{margin-top:34px;min-height:120px}
 /* Twikoo 暗色主题：覆盖官方 --tk-color-* 变量，融入全站血红暗黑风 */
 #tcomment{margin-top:8px}
 #tcomment .tk-main,
