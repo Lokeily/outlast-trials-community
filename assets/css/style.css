@@ -18,6 +18,7 @@
   --radius:14px;
   --maxw:1120px;
   font-synthesis:none;
+  color-scheme:dark;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -518,6 +519,10 @@ a:focus-visible,.btn:focus-visible,.fbtn:focus-visible,.to-top:focus-visible,
 }
 
 body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+/* 现代排版优化：标题均衡断行、正文避孤字，零兼容风险（不支持的浏览器忽略） */
+.title,.hero h1,.sectitle,.sp-title,.fc-title,.news-title{text-wrap:balance}
+.article p,.article li,.card p,.nlist li,.news-sum,.news-list li,.tip,.sp-body p,.fc-desc{text-wrap:pretty}
 
 .site-nav{
   background:rgba(10,11,13,.78);

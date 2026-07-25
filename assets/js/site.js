@@ -1,15 +1,15 @@
 /* 逃生试炼社区 · 动效与性能
  * - 入场淡入：所有设备都保留（移动端 CSS 已降级为仅淡入、不位移，轻量不卡）
  * - 跑马灯旋转 / 毛玻璃 / 光泽扫过：仅 PC 启用，移动端静止或关闭（见 style.css）
- * - Twikoo 评论（匿名/QQ/微信，腾讯云开发后端）按需懒加载，国内可用、无需 GitHub
+ * - Twikoo 评论（匿名/QQ/微信，Netlify + MongoDB Atlas 免费后端）按需懒加载，国内可用、无需 GitHub；公网站点用精简版 twikoo.min.js
  * prefers-reduced-motion 下全部静止 */
 (function () {
   var doc = document.documentElement;
   doc.classList.add('js');
 
   // Twikoo 环境 ID（后端无关，按所选后端填对应值即可）：
+  //   Netlify     → https://你的站点.netlify.app/.netlify/functions/twikoo  （本站采用，配套 MongoDB Atlas）
   //   CloudBase    → 环境 ID 字符串，如 outlast-community-abc123
-  //   Netlify     → https://xxx.netlify.app/.netlify/functions/twikoo
   //   HuggingFace → https://xxx-xxx.hf.space
   var TWIKOO_ENV_ID = 'https://outlat-twikoo.netlify.app/.netlify/functions/twikoo';
 
@@ -36,7 +36,7 @@
   // 进入动画：给内容块加 .reveal，CSS 动画会自动播放显形（不依赖第二个类，
   // 即使后续 JS 出错也不会卡在隐藏态）。--d 控制自上而下级联节奏
   var sel = '.site-nav, .hero, .ampsec, .cards, .col, .gridwrap, .news-item, ' +
-            '.ncard, .tips, .article, .legend, .contrib, #comments, .site-foot';
+            '.ncard, .tips, .article, .legend, #comments, .site-foot';
   var els = Array.prototype.slice.call(document.querySelectorAll(sel));
   els.forEach(function (el, i) {
     el.classList.add('reveal');
