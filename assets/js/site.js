@@ -73,6 +73,30 @@
     if (!window.twikoo) { window.addEventListener('load', initTwikoo); return; }
     mount.dataset.ready = '1';
     window.twikoo.init({ envId: TWIKOO_ENV_ID, el: '#tcomment', lang: 'zh-CN' });
+    watchTwikooNickField(mount);
+  }
+  // 把评论区昵称输入框改为「Steam ID」风格提示。
+  // 邮箱/网址输入框已通过后端配置 DISPLAYED_FIELDS=nick 隐藏，昵称必填由 REQUIRED_FIELDS=nick 控制。
+  // 回复框是动态生成的，所以用 MutationObserver 持续打补丁。
+  function watchTwikooNickField(mount) {
+    function patch() {
+      var inputs = mount.querySelectorAll('input[name="nick"]');
+      for (var i = 0; i < inputs.length; i++) {
+        var inp = inputs[i];
+        if (inp.dataset.steamPatched) continue;
+        inp.dataset.steamPatched = '1';
+        inp.placeholder = '填入 Steam ID 名称（必填）';
+        var group = inp.closest('.el-input-group');
+        var prepend = group && group.querySelector('.el-input-group__prepend');
+        if (prepend) prepend.textContent = 'Steam ID';
+      }
+    }
+    patch();
+    if ('MutationObserver' in window) {
+      new MutationObserver(patch).observe(mount, { childList: true, subtree: true });
+    } else {
+      setInterval(patch, 1500);
+    }
   }
   function setupMobileMenu() {
     var nav = document.querySelector('.site-nav');
