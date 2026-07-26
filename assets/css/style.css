@@ -782,3 +782,8 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .more-updates{text-align:center;margin:26px 0 8px}
 .more-updates .btn{min-width:260px;justify-content:center}
 .more-updates-tip{margin-top:8px;font-size:13px;color:var(--muted)}
+
+/* 评论区加载占位：预加载/慢网下显示，避免空白等待 */
+.tk-loading{display:flex;align-items:center;justify-content:center;min-height:140px;color:var(--text-mute);font-size:14px;letter-spacing:.06em}
+.tk-loading::after{content:"";width:15px;height:15px;margin-left:10px;border:2px solid rgba(226,55,43,.35);border-top-color:var(--red-bright);border-radius:50%;animation:tk-spin .8s linear infinite}
+@keyframes tk-spin{to{transform:rotate(360deg)}}
