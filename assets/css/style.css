@@ -28,30 +28,33 @@ body{
   color:var(--text);
   font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   line-height:1.6;
-  /* 全屏主题背景图（程序化生成的「逃生试炼」暗黑临床氛围，已验证够暗够红） */
   background-color:var(--bg);
-  background-image:url("../images/bg-outlast.webp");
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
   padding-bottom:40px;
 }
-/* 氛围噪点纹理（程序生成，无版权/无额外请求） */
+/* 全屏官方背景图（《逃生：试炼》Steam 官方宣传画）：大虚化 + 压暗，作沉浸氛围底。
+   inset:-40px + scale 让模糊边缘外扩到视口外，避免露出虚化白边 */
 body::before{
+  content:"";position:fixed;inset:-40px;z-index:-3;pointer-events:none;
+  background:url("../images/bg-outlast-official.jpg") center/cover no-repeat;
+  filter:blur(24px) saturate(1.14) brightness(.62) contrast(1.05);
+  transform:scale(1.14);
+  will-change:transform;
+}
+/* 氛围噪点纹理（程序生成，无版权/无额外请求） */
+html::before{
   content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity:.045;
+  opacity:.05;mix-blend-mode:overlay;
 }
-/* 暗色叠加层：彩色辉光 + 半透明压暗 + 暗角，让主题背景图只作隐约氛围，文字始终可读 */
+/* 暗色蒙版层：彩色辉光 + 半透明压暗 + 暗角，让官方背景图只作隐约氛围、文字始终清晰可读 */
 body::after{
   content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
-    radial-gradient(1000px 620px at 50% -8%,rgba(226,55,43,.10),transparent 60%),
-    radial-gradient(900px 620px at 85% 110%,rgba(63,128,115,.07),transparent 55%),
-    radial-gradient(800px 520px at 5% 100%,rgba(217,164,65,.05),transparent 55%),
-    linear-gradient(180deg,rgba(10,11,13,.55),rgba(10,11,13,.66)),
-    radial-gradient(125% 120% at 50% 38%,transparent 46%,rgba(0,0,0,.64) 100%);
+    radial-gradient(1100px 680px at 50% -10%,rgba(226,55,43,.18),transparent 60%),
+    radial-gradient(950px 640px at 88% 112%,rgba(63,128,115,.11),transparent 55%),
+    radial-gradient(820px 540px at 4% 100%,rgba(217,164,65,.07),transparent 55%),
+    linear-gradient(180deg,rgba(8,9,11,.76),rgba(8,9,11,.86)),
+    radial-gradient(130% 125% at 50% 36%,transparent 38%,rgba(0,0,0,.8) 100%);
 }
 a{color:var(--red-bright);text-decoration:none;transition:color .15s}
 a:hover{text-decoration:none;color:#ff7a6e}
@@ -454,8 +457,8 @@ section{margin-top:30px}
   .site-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,11,13,.94)}
   /* 进入动画仅做淡入、不位移，降低合成层开销 */
   .js .reveal{animation-name:riseSoft;animation-duration:.45s}
-  /* 移动端背景改为随滚动（fixed 在 iOS 上易重绘掉帧） */
-  body{background-attachment:scroll}
+  /* 移动端：减小虚化半径 + 去掉 will-change，降低 GPU/内存开销（背景层静止不重绘） */
+  body::before{filter:blur(15px) brightness(.6) saturate(1.1);transform:scale(1.1);will-change:auto}
 }
 
 /* ===== 离屏跳过渲染：长页面重区块在视口外不绘制，降低滚动开销 ===== */
@@ -695,3 +698,78 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .ntitle.dim-green{color:var(--green)}
 .ntitle.dim-purple{color:#bc8cff}
 .ntitle.dim-blue{color:#4ea1ff}
+
+/* =========================================================================
+   视觉升级 · 2026-07-26
+   配合「官方背景图 + 虚化蒙版」的新底：提升色彩通透度、层次与 UI 精致度。
+   仍采用「末尾追加、后定义优先」，不改动上方任何原规则。
+   ========================================================================= */
+
+/* 让玻璃面板在真实照片底上更通透、更有景深：略降不透明度 + 更明显的顶部高光与内发光 */
+.card,.col,.gridwrap,.itcard,.reccol,.tips,.ncard,.startpath,.faq details,.toc{
+  background:linear-gradient(180deg,rgba(28,31,34,.72),rgba(15,17,19,.78));
+  backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);
+  border-top:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow-1),inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* 导航栏更通透，透出背后虚化背景形成深度；滚动后加一道血红底光 */
+.site-nav{background:rgba(10,11,13,.62);backdrop-filter:blur(16px) saturate(1.15);-webkit-backdrop-filter:blur(16px) saturate(1.15)}
+.site-nav.scrolled{background:rgba(8,9,11,.82)}
+
+/* Hero：标题后加一团电影感血红辉光，字体金属质感更强 */
+.hero{position:relative}
+.hero::before{
+  content:"";position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  width:min(760px,86vw);height:340px;z-index:-1;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(226,55,43,.28),rgba(226,55,43,.08) 55%,transparent 72%);
+  filter:blur(6px);
+}
+.hero h1{
+  font-size:46px;letter-spacing:1.5px;
+  background:linear-gradient(180deg,#fff 8%,#ffd7d1 34%,var(--red-bright) 70%,var(--red-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 42px rgba(226,55,43,.45),0 2px 12px rgba(0,0,0,.6);
+}
+
+/* 主标题 / 区块标题：更亮的强调渐变 + 呼吸感底线 */
+.title{
+  background:linear-gradient(120deg,#ff8f84,var(--red-bright) 45%,var(--red-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sectitle::before,.sectitle::after{
+  height:2px;width:30px;
+  background:linear-gradient(90deg,transparent,var(--red-bright));opacity:1;
+  box-shadow:0 0 10px rgba(226,55,43,.55);
+}
+.sectitle::after{background:linear-gradient(90deg,var(--red-bright),transparent)}
+
+/* 卡片悬停：增加一圈血红边光（rim light），层次更立体 */
+.card:hover,.itcard:hover{
+  box-shadow:0 24px 58px rgba(0,0,0,.5),0 0 0 1px rgba(226,55,43,.35),0 0 30px rgba(226,55,43,.28);
+}
+
+/* 首页导航卡图标底座更精致：渐变 + 内发光 */
+.card .ico{
+  background:linear-gradient(160deg,rgba(226,55,43,.22),rgba(226,55,43,.06));
+  border-color:rgba(226,55,43,.5);
+  box-shadow:inset 0 0 14px rgba(226,55,43,.18),0 6px 16px rgba(0,0,0,.4);
+}
+
+/* 主按钮：更饱满的血红渐变 + 高光描边，强化第一视觉焦点 */
+.btn-primary{
+  background:linear-gradient(135deg,#ff5a49,#c22218 88%);
+  border:1px solid rgba(255,120,110,.4);
+}
+
+/* 强调链接 hover 更亮，正文关键词更清晰（照片底上保证可读） */
+.card p,.article p,.article li,.nlist li{color:#c3bcb4}
+.hero p{color:#ccc5bd}
+
+/* 页脚与背景过渡更自然：加一道顶部渐隐分隔 */
+.site-foot{background:linear-gradient(180deg,transparent,rgba(8,9,11,.6))}
+
+@media (max-width:640px){
+  .hero h1{font-size:29px}
+  .hero::before{height:220px}
+}

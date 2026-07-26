@@ -54,7 +54,7 @@
     }
   }
 
-  // Twikoo 评论：匿名或 QQ/微信登录，腾讯云开发（CloudBase）后端，国内顺畅、无需 GitHub。
+  // Twikoo 评论：匿名或 QQ/微信登录，Netlify + MongoDB Atlas 免费后端，国内顺畅、无需 GitHub。
   // 后端环境 ID 见上方 TWIKOO_ENV_ID（部署步骤见仓库 README）。
   function setupTwikoo() {
     var mount = document.getElementById('tcomment');
