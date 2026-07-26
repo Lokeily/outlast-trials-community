@@ -1,3 +1,11 @@
+/* 背景图渐进加载：先显内联 LQIP 占位（秒显），主图下载完再渐显，彻底消除逐块刷出卡顿 */
+(function () {
+  var bg = new Image();
+  var show = function () { if (document.body) document.body.classList.add('bg-ready'); };
+  bg.onload = show; bg.onerror = show;
+  bg.src = '../images/bg-outlast-hero.jpg';
+})();
+
 /* 逃生试炼社区 · 动效与性能
  * - 入场淡入：所有设备都保留（移动端 CSS 已降级为仅淡入、不位移，轻量不卡）
  * - 跑马灯旋转 / 毛玻璃 / 光泽扫过：仅 PC 启用，移动端静止或关闭（见 style.css）
