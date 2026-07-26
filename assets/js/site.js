@@ -67,12 +67,21 @@
   function setupTwikoo() {
     var mount = document.getElementById('tcomment');
     if (!mount) return;
+    // 提前预加载：页面加载完成后空闲即拉取评论，用户浏览内容时后台已就绪，
+    // 滚到评论区不再空白等待（彻底解决「滚到才加载、一卡两三秒」）
+    var preload = function () {
+      if ('requestIdleCallback' in window) requestIdleCallback(initTwikoo, { timeout: 2500 });
+      else setTimeout(initTwikoo, 1000);
+    };
+    if (document.readyState === 'complete') preload();
+    else window.addEventListener('load', preload);
+    // 视口兜底：更大提前量，确保任何情况下进入视口前已开始加载
     if (!('IntersectionObserver' in window)) { initTwikoo(); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { initTwikoo(); io.disconnect(); }
       });
-    }, { rootMargin: '600px 0px' });
+    }, { rootMargin: '1200px 0px' });
     io.observe(mount);
   }
   function initTwikoo() {
