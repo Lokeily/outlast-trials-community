@@ -29,15 +29,22 @@ body{
   font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   line-height:1.6;
   background-color:var(--bg);
+  background-image:url("data:image/png;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAKKADAAQAAAABAAAADQAAAAD/wAARCAANACgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9sAQwACAgICAgIDAgIDBQMDAwUGBQUFBQYIBgYGBgYICggICAgICAoKCgoKCgoKDAwMDAwMDg4ODg4PDw8PDw8PDw8P/9sAQwECAgIEBAQHBAQHEAsJCxAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQ/90ABAAD/9oADAMBAAIRAxEAPwD8fdCsjNMhIyM17TYWoijXy4+B3xXluiEQSJtHevQTq86WuFHf17YrwsVduyEkdXHrLXxSwiLG6iDjamclUx1HXIByD0I75qPULhYU0oXtsImuZGWQyTj59gYrIV6orBhgHnj3rzlbqbUNQe23GJ1tp5y47iOMyBMdh8uCc81579tnuIlWVixJGCTkjpXPDD6mnMdz4xtrH7ZJ9ilFxHxl0VgobHKgtgnHQnGPSuE+yiukXCWbRtlyjupJPXB61R3p/cFejR0jYykj/9k=");
+  background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;
   padding-bottom:40px;
 }
 /* 全屏官方背景图（《逃生：试炼》Steam 官方高清宣传画 1920x620）：
    清晰展示官方图，仅轻微压暗保色，靠 body::after 的柔和蒙版保证文字可读 */
+/* 背景主图层：加载完成后由脚本加 .bg-ready 渐显，避免逐块刷出造成的卡顿 */
 body::before{
   content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;
   background:url("../images/bg-outlast-hero.jpg") center 22%/cover no-repeat;
-  filter:saturate(1.08) brightness(.78) contrast(1.04);
+  filter:saturate(1.06) brightness(.82) contrast(1.04) blur(7px);
+  opacity:0;transition:opacity .7s ease;will-change:opacity;
 }
+/* 主图就绪后渐显（.bg-ready 由脚本在图片 onload 时添加） */
+body.bg-ready::before{opacity:1}
+
 /* 氛围噪点纹理（程序生成，无版权/无额外请求） */
 html::before{
   content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
@@ -455,7 +462,7 @@ section{margin-top:30px}
   /* 进入动画仅做淡入、不位移，降低合成层开销 */
   .js .reveal{animation-name:riseSoft;animation-duration:.45s}
   /* 移动端：背景同样保持清晰，仅轻压暗 */
-  body::before{filter:brightness(.72) saturate(1.05)}
+  body::before{filter:brightness(.76) saturate(1.04) blur(7px)}
 }
 
 /* ===== 离屏跳过渲染：长页面重区块在视口外不绘制，降低滚动开销 ===== */
