@@ -3,7 +3,7 @@
   var bg = new Image();
   var show = function () { if (document.body) document.body.classList.add('bg-ready'); };
   bg.onload = show; bg.onerror = show;
-  bg.src = '../images/bg-outlast-hero.jpg';
+  bg.src = 'assets/images/bg-outlast-hero.jpg';
 })();
 
 /* 逃生试炼社区 · 动效与性能
