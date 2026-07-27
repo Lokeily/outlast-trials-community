@@ -245,3 +245,47 @@
     });
   }
 })();
+
+/* 赛季活动倒计时：每天自动更新天数，到期后自动隐藏整张卡片。
+   用法：容器加 data-countdown-to="YYYY-MM-DD"，内部 [data-countdown-text] 里的 <b> 会被天数替换。
+   到期后整卡 fade out，页面干干净净不留痕迹。 */
+(function () {
+  var cards = document.querySelectorAll('.ss-card[data-countdown-to]');
+  if (!cards.length) return;
+
+  function daysLeft(targetDate) {
+    var now = new Date();
+    // 取本地日期零点对齐，避免时区偏差
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var end = new Date(targetDate + 'T00:00:00');
+    var diff = end.getTime() - today.getTime();
+    return Math.max(0, Math.ceil(diff / 86400000));
+  }
+
+  function updateCountdowns() {
+    cards.forEach(function (card) {
+      var to = card.getAttribute('data-countdown-to');
+      if (!to) return;
+      var left = daysLeft(to);
+      var textEl = card.querySelector('[data-countdown-text]');
+      if (left <= 0) {
+        card.classList.add('expired');
+        // 到期后彻底移除，避免残留占位
+        setTimeout(function () {
+          if (card.parentNode) card.parentNode.removeChild(card);
+        }, 400);
+      } else if (textEl) {
+        var b = textEl.querySelector('b');
+        if (b) b.textContent = left;
+      }
+    });
+
+    // 所有卡片都过期后隐藏整个状态条
+    var container = document.querySelector('.season-status');
+    if (container && container.querySelectorAll('.ss-card:not(.expired)').length === 0) {
+      container.style.display = 'none';
+    }
+  }
+
+  updateCountdowns();
+})();
