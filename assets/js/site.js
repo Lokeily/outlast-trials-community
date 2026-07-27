@@ -41,15 +41,31 @@
 
   if (reduce) return; // 已开启"减少动态效果"则不再加任何进入动画
 
-  // 进入动画：给内容块加 .reveal，CSS 动画会自动播放显形（不依赖第二个类，
-  // 即使后续 JS 出错也不会卡在隐藏态）。--d 控制自上而下级联节奏
+  // 进入动画：先打 .reveal（默认隐藏），滚动进入视口才加 .in 播放，
+  // 避免首屏一次性全播、屏下内容在不可见时已播完；--d 控制同屏级联节奏
   var sel = '.site-nav, .hero, .ampsec, .cards, .col, .gridwrap, .news-item, ' +
             '.ncard, .tips, .article, .legend, #comments, .site-foot';
-  var els = Array.prototype.slice.call(document.querySelectorAll(sel));
-  els.forEach(function (el, i) {
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll(sel));
+  revealEls.forEach(function (el, i) {
     el.classList.add('reveal');
     el.style.setProperty('--d', Math.min(i * 45, 540) + 'ms');
   });
+
+  if ('IntersectionObserver' in window) {
+    var revObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); revObserver.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+    revealEls.forEach(function (el) { revObserver.observe(el); });
+    // 兜底：极端情况下（如 IO 漏触发）1.8s 后强制显形，杜绝内容卡在隐藏态
+    setTimeout(function () { revealEls.forEach(function (el) { el.classList.add('in'); }); }, 1800);
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // 目录滚动高亮（scrollspy）：阅读长文时高亮当前所在小节（仅 newbie 等带目录页生效）
+  try { setupScrollSpy(); } catch (e) {}
 
   // 跑马灯仅 PC 启用：进入视口才旋转，离开即暂停，避免持续重绘
   if (!isMobile) {
@@ -136,6 +152,14 @@
       if (!nav.contains(e.target)) {
         nav.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    // Esc 关闭菜单，并把焦点交还汉堡按钮，符合键盘操作预期
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
       }
     });
   }
@@ -243,6 +267,35 @@
         });
       }
     });
+  }
+
+  // 目录滚动高亮（scrollspy）：章节进入“触发带”时，对应 TOC 链接高亮。
+  // 仅在 .toc 存在且含 ≥2 个页内锚点时启用（newbie 等长文页），不影响其他页面。
+  function setupScrollSpy() {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+    if (links.length < 2) return;
+    var sections = links.map(function (a) {
+      var id = (a.getAttribute('href') || '').slice(1);
+      return id ? document.getElementById(id) : null;
+    }).filter(Boolean);
+    if (sections.length < 2) return;
+    var linkOf = {};
+    sections.forEach(function (s) {
+      linkOf[s.id] = links.filter(function (a) {
+        return (a.getAttribute('href') || '').slice(1) === s.id;
+      })[0];
+    });
+    var current = null;
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          if (current && linkOf[current]) linkOf[current].classList.remove('active');
+          current = e.target.id;
+          if (linkOf[current]) linkOf[current].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-84px 0px -68% 0px', threshold: 0 });
+    sections.forEach(function (s) { spy.observe(s); });
   }
 })();
 

@@ -100,6 +100,10 @@ img{max-width:100%}
 .menu-toggle:hover{border-color:rgba(226,55,43,.55);background:rgba(226,55,43,.10)}
 .site-nav.open .menu-toggle{color:var(--red-bright);border-color:rgba(226,55,43,.55)}
 
+/* 锚点跳转时为吸顶导航预留高度，避免目标被导航栏遮挡（如 #comments、目录锚点、跨页 discuss.html#comments） */
+:target{scroll-margin-top:74px}
+section[id],h2[id],h3[id],.sectitle[id]{scroll-margin-top:74px}
+
 /* ===== 容器 / 标题 ===== */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
 main{padding:30px 0}
@@ -407,10 +411,12 @@ section{margin-top:30px}
 /* 滚动进入：用 transition 而非 keyframes，避免动画结束后残留合成层 */
 /* 进入动画用纯 CSS 动画自动播放：只要加上 .reveal 就显形，
    不再依赖 JS 追加第二个类，避免“卡在隐藏态看不到内容” */
-.js .reveal{opacity:0;animation:rise .6s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--d,0ms)}
+/* 滚动进入：默认隐藏，进入视口（加 .in）才播放，避免不可见时已播完 */
+.js .reveal{opacity:0}
+.js .reveal.in{animation:rise .6s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--d,0ms)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes riseSoft{from{opacity:0}to{opacity:1}}
-.js .site-nav.reveal{animation-name:riseSoft}
+.js .site-nav.reveal.in{animation-name:riseSoft}
 
 /* 导航项下划线滑入 */
 .nav-links a{position:relative}
@@ -462,7 +468,7 @@ section{margin-top:30px}
   /* 导航栏去掉毛玻璃，滚动时不再反复重栅格化背后内容 */
   .site-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,11,13,.94)}
   /* 进入动画仅做淡入、不位移，降低合成层开销 */
-  .js .reveal{animation-name:riseSoft;animation-duration:.45s}
+  .js .reveal.in{animation-name:riseSoft;animation-duration:.45s}
   /* 移动端：背景同样保持清晰，仅轻压暗 */
   body::before{filter:brightness(.76) saturate(1.04) blur(7px)}
 }
@@ -474,6 +480,7 @@ section{margin-top:30px}
 /* 减少动效偏好：全部静止，保证可读与无障碍 */
 @media (prefers-reduced-motion: reduce){
   .js .reveal{opacity:1 !important;transform:none !important;transition:none !important}
+  html{scroll-behavior:auto !important}
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
   .card::after{display:none}
   .news-head::before,.news-item.inview .news-head::before{animation-play-state:paused !important}
@@ -497,6 +504,7 @@ section{margin-top:30px}
 .toc li{font-size:13px}
 .toc a{color:var(--text-dim);transition:.15s}
 .toc a:hover{color:var(--red-bright)}
+.toc a.active{color:var(--red-bright);font-weight:700}
 .toc a::before{content:"";display:inline-block;width:6px;height:6px;background:var(--red);border-radius:1.4px;margin-right:9px;flex:none}
 
 /* ===== 新手 FAQ ===== */
