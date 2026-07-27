@@ -789,3 +789,9 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .tk-loading{display:flex;align-items:center;justify-content:center;min-height:140px;color:var(--text-mute);font-size:14px;letter-spacing:.06em}
 .tk-loading::after{content:"";width:15px;height:15px;margin-left:10px;border:2px solid rgba(226,55,43,.35);border-top-color:var(--red-bright);border-radius:50%;animation:tk-spin .8s linear infinite}
 @keyframes tk-spin{to{transform:rotate(360deg)}}
+
+/* ===== 赛季活动进行中状态条（news / updates 页共用） ===== */
+.season-status{margin:20px auto 0;max-width:1100px}
+@media (max-width:640px){
+  .season-status{gap:8px;margin-top:14px}
+}
