@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <rect width="760" height="300" fill="#0f1113"/>
+  <text x="48" y="22" fill="#e8e8e8" font-size="15" font-weight="700">每日浏览人数曲线（真实数据 · 自动同步）</text>
+  <text x="380" y="155" fill="#7a8089" font-size="14" text-anchor="middle">数据生成中… 计数后端上线后，GitHub Actions 将每日自动绘制真实曲线。</text>
+  <text x="742" y="294" fill="#5a6069" font-size="9" text-anchor="end">红=周五六日 · 数据由 Cloudflare Worker + KV 统计</text>
+</svg>
