@@ -18,7 +18,7 @@ jobs:
 
       - name: 拉取真实访问数据并生成 SVG 曲线
         env:
-          STATS_URL: ${{ secrets.VISITOR_STATS_URL }}
+          STATS_URL: "https://outlast-visitors.dz3084614411.workers.dev/stats?days=30"
         run: python3 .github/scripts/gen_chart.py
 
       - name: 提交图表到 README
