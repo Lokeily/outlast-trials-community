@@ -89,4 +89,5 @@ subdomain = json.loads(sub_resp)["result"]["subdomain"]
 base = f"https://{SCRIPT}.{subdomain}.workers.dev"
 print("WORKER_BASE=", base)
 print("STATS_URL  =", base + "/stats?days=30")
-print("TRACK_URL  =", base + "/track")
+print("TRACK_URL  =", base + "/p  (页面埋点，浏览器调用)")
+print("ONLINE_URL =", base + "/o  (实时在线，浏览器调用)")
