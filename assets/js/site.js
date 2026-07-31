@@ -350,7 +350,7 @@
  * 未接入后端(WORKER_BASE 为空)时：降级为本地模拟，保证数字始终可见。
  */
 (function () {
-  var WORKER_BASE = ''; // 例: https://outlast-visitors.xxx.workers.dev （部署后端后填入即生效）
+  var WORKER_BASE = 'https://outlast-visitors.dz3084614411.workers.dev'; // 真实计数后端（Cloudflare Worker）
 
   // 稳定的访客 ID：用于后台去重与在线心跳
   function getVid() {
