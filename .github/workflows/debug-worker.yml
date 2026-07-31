@@ -1,0 +1,18 @@
+name: debug-worker
+on:
+  workflow_dispatch: {}
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe worker endpoints
+        run: |
+          BASE="https://outlast-visitors.dz3084614411.workers.dev"
+          for p in "/" "/online" "/stats?days=30" "/track?vid=debug123"; do
+            echo "=== GET $p ==="
+            curl -s -o /tmp/body -w "HTTP %{http_code}\n" "$BASE$p" \
+              -H "Referer: https://lokeily.github.io/outlast-trials-community/" \
+              -H "User-Agent: Mozilla/5.0"
+            echo "--- body (first 300 chars) ---"
+            head -c 300 /tmp/body; echo; echo
+          done
