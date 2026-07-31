@@ -343,115 +343,141 @@
   updateCountdowns();
 })();
 
-/* 访客计数器：真实累计(不蒜子) + 实时在线估算 + 数字轮盘切换 */
+/* 访客计数器
+ * 已接入 Cloudflare Worker 后端(WORKER_BASE 非空)时：
+ *   - 左下角“当前在线访客” = 后台实时并发人数(/online)
+ *   - 首页大标题下“今日访问人次” = 后台当日真实累计(按访客去重，/track 返回)
+ * 未接入后端(WORKER_BASE 为空)时：降级为本地模拟，保证数字始终可见。
+ */
 (function () {
-    function startVisitorCounter() {
-      var box = document.getElementById('vcOnline');
-      if (!box) return;
+  var WORKER_BASE = ''; // 例: https://outlast-visitors.xxx.workers.dev （部署后端后填入即生效）
 
-      function setOnline(n) {
-        n = String(n);
-        if (box.dataset.cur === n) return;
-        box.dataset.cur = n;
-        box.style.width = n.length + 'ch';
-        var old = box.querySelector('.vc-digit');
-        var next = document.createElement('span');
-        next.className = 'vc-digit vc-in';
-        next.textContent = n;
-        box.appendChild(next);
-        void next.offsetWidth;
-        if (old) {
-          old.classList.add('vc-out');
-          setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 500);
-        } else {
-          next.classList.remove('vc-in');
-        }
-      }
+  // 稳定的访客 ID：用于后台去重与在线心跳
+  function getVid() {
+    try {
+      var v = localStorage.getItem('otc_vid');
+      if (!v) { v = 'v' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); localStorage.setItem('otc_vid', v); }
+      return v;
+    } catch (e) { return 'anon-' + Math.random().toString(36).slice(2, 7); }
+  }
 
-      // 一天各时段的相对热度（国内游戏社群作息）：凌晨谷底、白天平台、晚8-9点巅峰、深夜尾巴
-      var hourWBase = [0.55,0.38,0.20,0.10,0.06,0.05,0.08,0.14,0.20,0.24,0.26,0.30,0.42,0.34,0.32,0.34,0.40,0.55,0.75,0.92,1.00,1.00,0.95,0.78];
+  // 数字轮盘切换（左下角“当前在线访客”）
+  function makeRoulette(box) {
+    return function setNum(n) {
+      n = String(n);
+      if (!box || box.dataset.cur === n) return;
+      box.dataset.cur = n;
+      box.style.width = n.length + 'ch';
+      var old = box.querySelector('.vc-digit');
+      var next = document.createElement('span');
+      next.className = 'vc-digit vc-in';
+      next.textContent = n;
+      box.appendChild(next);
+      void next.offsetWidth;
+      if (old) {
+        old.classList.add('vc-out');
+        setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 500);
+      } else {
+        next.classList.remove('vc-in');
+      }
+    };
+  }
 
-      // 用日期做种子：同一天刷新结果稳定，不同天自动不同（每天都有变动）
-      function daySeed() {
-        var d = new Date();
-        var key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-        var h = 0;
-        for (var i = 0; i < key.length; i++) { h = (h * 31 + key.charCodeAt(i)) >>> 0; }
-        return h;
-      }
-      // 当日整体系数（确定性伪随机）：约 0.75 ~ 1.25，让每天整体人数量级都有明显波动
-      function dayFactor() {
-        var r = (daySeed() % 10000) / 10000;
-        return 0.75 + r * 0.50;
-      }
-      // 星期系数：以《逃生试炼》Steam 真实周律为基准（tracker.gg 周均并发：周六最高 > 周五 > 周日 > 周四 > 周一 > 周二 > 周三最低）。
-      // 国内玩家基数大（累计约 250 万份、含国区定价），周末打游戏 + 看攻略人数激增。
-      // 周一~周五：每天各自随机（基于日期种子），围绕 1.0 波动；周六日：显著激增。
-      function weekdayFactor() {
-        var w = new Date().getDay(); // 0=周日,1=一,2=二,3=三,4=四,5=五,6=六
-        var s = daySeed();
-        if (w === 0 || w === 6) {
-          return 1.55 * (1.10 + (s % 100) / 100 * 0.35); // 周六/周日：激增 ≈1.70~2.06
-        }
-        if (w === 5) {
-          return 1.18 * (0.95 + (s % 100) / 100 * 0.15); // 周五晚间起飙 ≈1.12~1.37
-        }
-        return 0.85 + (s % 100) / 100 * 0.30;             // 周一~周四：每天随机 ≈0.85~1.15
-      }
-      // 按日期确定的每日偏移（±4 人）：保证相邻两天、同一钟点的基线也一定不同
-      function dayOffset() { return (daySeed() % 9) - 4; }
-      // 动态时段热度：基础曲线 × 当日系数 × 星期系数 + 每小时微抖动（保持整体形态，但每天略有不同）
-      function trafficNow() {
-        var f = dayFactor() * weekdayFactor();
-        var s = daySeed();
-        var h = new Date().getHours();
-        var jit = ((((s ^ (h * 40503)) >>> 0) % 17) / 17 - 0.5) * 0.24; // 每小时 ±12% 确定性微扰，相邻日形状也不同
-        var v = hourWBase[h] * f * (1 + jit);
-        return Math.max(0.03, Math.min(2.60, v));
-      }
+  var onlineBox = document.getElementById('vcOnline');
+  var setOnline = makeRoulette(onlineBox);
+  var todayEl = document.getElementById('vcToday');
+  function setToday(n) { if (todayEl) todayEl.textContent = n; }
 
-      // 基线在线人数：跟随真实流量，但设定合理下限，避免小站点恒为 1~3
-      function baselineFromUv(uv) {
-        var w = trafficNow();
-        var raw = uv * 0.018 * (0.5 + w);          // 按累计UV与时段估算
-        return Math.max(4, Math.round(raw));
-      }
-      function baselineFallback() {
-        var w = trafficNow();
-        return Math.max(4, Math.round((15 + Math.random() * 25) * (0.5 + w)));
-      }
+  // ============ 真实模式：从 Worker 后端读取实时数据 ============
+  if (WORKER_BASE) {
+    var vid = getVid();
 
-      var started = false;
-      function start(baseline) {
-        if (started) return;
-        started = true;
-        baseline = baseline + dayOffset(); // 叠加按日期的确定性偏移，让每天都不一样
-        // 围绕基线形成一个自然的浮动区间，而非死盯一个固定数
-        var floor = Math.max(1, Math.round(baseline * 0.45));
-        var ceil  = Math.round(baseline * 1.6) + 4;
-        var online = baseline;
-        setOnline(online);
-        setInterval(function () {
-          // 随机游走 + 向基线轻微回归：数字会自然上下浮动、偶尔跳动，而不是机械地来回拉锯
-          var step = Math.floor(Math.random() * 9) - 4;   // -4 ~ +4
-          var pull = (baseline - online) * 0.12;           // 均值回归，避免长期漂移
-          online = Math.round(online + step + pull);
-          if (online < floor) online = floor + Math.floor(Math.random() * 2);
-          if (online > ceil)  online = ceil  - Math.floor(Math.random() * 2);
-          setOnline(online);
-        }, 10000);
-      }
-
-      // 优先用不蒜子的累计访客估算在线人数；若 4 秒内未拿到（被拦截/服务异常），用兜底估算，保证数字一定显示
-      function readUv(cb) {
-        var span = document.getElementById('busuanzi_value_site_uv');
-        var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
-        if (v > 0) { cb(v); } else { setTimeout(function () { readUv(cb); }, 600); }
-      }
-      readUv(function (uv) { start(baselineFromUv(uv)); });
-      setTimeout(function () { if (!started) start(baselineFallback()); }, 4000);
+    function recordVisit() {
+      try {
+        fetch(WORKER_BASE + '/track?vid=' + encodeURIComponent(vid),
+              { method: 'POST', mode: 'cors', keepalive: true, cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (!d) return;
+            if (typeof d.count === 'number') setToday(d.count);
+            if (typeof d.online === 'number') setOnline(d.online);
+          })
+          .catch(function () {});
+      } catch (e) {}
     }
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', startVisitorCounter); } else { startVisitorCounter(); }
+    function pollOnline() {
+      try {
+        fetch(WORKER_BASE + '/online', { method: 'GET', mode: 'cors', cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { if (d && typeof d.online === 'number') setOnline(d.online); })
+          .catch(function () {});
+      } catch (e) {}
+    }
+
+    recordVisit();            // 页面加载即埋点 + 取今日/在线人数
+    pollOnline();
+    setInterval(recordVisit, 90000); // 每 90s 心跳：维持在线 + 刷新今日人次
+    setInterval(pollOnline, 30000);  // 每 30s 拉取实时并发人数
+    return;
+  }
+
+  // ============ 模拟模式（未接后端时降级，数字仍可见） ============
+  (function simulated() {
+    var hourWBase = [0.55,0.38,0.20,0.10,0.06,0.05,0.08,0.14,0.20,0.24,0.26,0.30,0.42,0.34,0.32,0.34,0.40,0.55,0.75,0.92,1.00,1.00,0.95,0.78];
+    function daySeed() {
+      var d = new Date();
+      var key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+      var h = 0;
+      for (var i = 0; i < key.length; i++) { h = (h * 31 + key.charCodeAt(i)) >>> 0; }
+      return h;
+    }
+    function dayFactor() { var r = (daySeed() % 10000) / 10000; return 0.75 + r * 0.50; }
+    function weekdayFactor() {
+      var w = new Date().getDay(); var s = daySeed();
+      if (w === 0 || w === 6) return 1.55 * (1.10 + (s % 100) / 100 * 0.35);
+      if (w === 5) return 1.18 * (0.95 + (s % 100) / 100 * 0.15);
+      return 0.85 + (s % 100) / 100 * 0.30;
+    }
+    function dayOffset() { return (daySeed() % 9) - 4; }
+    function trafficNow() {
+      var f = dayFactor() * weekdayFactor(); var s = daySeed(); var h = new Date().getHours();
+      var jit = ((((s ^ (h * 40503)) >>> 0) % 17) / 17 - 0.5) * 0.24;
+      var v = hourWBase[h] * f * (1 + jit);
+      return Math.max(0.03, Math.min(2.60, v));
+    }
+    function baselineFromUv(uv) {
+      var w = trafficNow(); var raw = uv * 0.018 * (0.5 + w);
+      return Math.max(4, Math.round(raw));
+    }
+    function baselineFallback() {
+      var w = trafficNow(); return Math.max(4, Math.round((15 + Math.random() * 25) * (0.5 + w)));
+    }
+    var started = false;
+    function start(baseline) {
+      if (started) return; started = true;
+      baseline = baseline + dayOffset();
+      var floor = Math.max(1, Math.round(baseline * 0.45));
+      var ceil = Math.round(baseline * 1.6) + 4;
+      var online = baseline;
+      setOnline(online);
+      setInterval(function () {
+        var step = Math.floor(Math.random() * 9) - 4;
+        var pull = (baseline - online) * 0.12;
+        online = Math.round(online + step + pull);
+        if (online < floor) online = floor + Math.floor(Math.random() * 2);
+        if (online > ceil) online = ceil - Math.floor(Math.random() * 2);
+        setOnline(online);
+      }, 10000);
+    }
+    function readUv(cb) {
+      var span = document.getElementById('busuanzi_value_site_uv');
+      var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
+      if (v > 0) { cb(v); } else { setTimeout(function () { readUv(cb); }, 600); }
+    }
+    readUv(function (uv) { start(baselineFromUv(uv)); });
+    setTimeout(function () { if (!started) start(baselineFallback()); }, 4000);
+    // 未接后端时，hero 的“今日访问人次”保持占位（--），避免显示虚假真实数据
+  })();
 })();
 
 /* 页脚总浏览人次：优先用不蒜子真实累计值；若被拦截/服务异常导致仍为 0，回退到本地计数，避免显示 0 */
@@ -474,24 +500,3 @@
   setTimeout(footViews, 6000); // 二次校正：若不蒜子稍晚才返回，真实值会覆盖兜底
 })();
 
-/* 真实每日访问埋点：每次页面加载向 Cloudflare Worker 计数 +1（用于 README 每日人数曲线）。
-   计数后端上线后把下面的 WORKER_BASE 改成真实地址即可；地址未设置时静默跳过。 */
-(function () {
-  var WORKER_BASE = ''; // 例: https://outlast-visitors.xxx.workers.dev
-  if (!WORKER_BASE) return;
-  function track() {
-    try {
-      var url = WORKER_BASE + '/track';
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(url, new Blob([''], { type: 'text/plain' }));
-      } else {
-        fetch(url, { method: 'POST', mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function () {});
-      }
-    } catch (e) {}
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', track);
-  } else {
-    track();
-  }
-})();
