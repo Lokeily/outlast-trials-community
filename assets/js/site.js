@@ -379,7 +379,7 @@
     readUv(function (uv) {
       online = estimateOnline(uv);
       setOnline(online);
-      setInterval(function () { var j = Math.floor(Math.random() * 5) - 2; setOnline(Math.max(1, online + j)); }, 4000);
+      setInterval(function () { var j = Math.floor(Math.random() * 5) - 2; setOnline(Math.max(1, online + j)); }, 10000);
     });
   }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', startVisitorCounter); } else { startVisitorCounter(); }
