@@ -473,3 +473,25 @@
   setTimeout(footViews, 3000); // 不蒜子通常在 3s 内返回，否则启用兜底
   setTimeout(footViews, 6000); // 二次校正：若不蒜子稍晚才返回，真实值会覆盖兜底
 })();
+
+/* 真实每日访问埋点：每次页面加载向 Cloudflare Worker 计数 +1（用于 README 每日人数曲线）。
+   计数后端上线后把下面的 WORKER_BASE 改成真实地址即可；地址未设置时静默跳过。 */
+(function () {
+  var WORKER_BASE = ''; // 例: https://outlast-visitors.xxx.workers.dev
+  if (!WORKER_BASE) return;
+  function track() {
+    try {
+      var url = WORKER_BASE + '/track';
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([''], { type: 'text/plain' }));
+      } else {
+        fetch(url, { method: 'POST', mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', track);
+  } else {
+    track();
+  }
+})();
