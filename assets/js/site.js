@@ -345,42 +345,56 @@
 
 /* 访客计数器：真实累计(不蒜子) + 实时在线估算 + 数字轮盘切换 */
 (function () {
-  function startVisitorCounter() {
-    var box = document.getElementById('vcOnline');
-    if (!box) return;
+    function startVisitorCounter() {
+      var box = document.getElementById('vcOnline');
+      if (!box) return;
 
-    function setOnline(n) {
-      n = String(n);
-      if (box.dataset.cur === n) return;
-      box.dataset.cur = n;
-      box.style.width = n.length + 'ch';
-      var old = box.querySelector('.vc-digit');
-      var next = document.createElement('span');
-      next.className = 'vc-digit vc-in';
-      next.textContent = n;
-      box.appendChild(next);
-      void next.offsetWidth;
-      if (old) {
-        old.classList.add('vc-out');
-        setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 500);
-      } else {
-        next.classList.remove('vc-in');
+      function setOnline(n) {
+        n = String(n);
+        if (box.dataset.cur === n) return;
+        box.dataset.cur = n;
+        box.style.width = n.length + 'ch';
+        var old = box.querySelector('.vc-digit');
+        var next = document.createElement('span');
+        next.className = 'vc-digit vc-in';
+        next.textContent = n;
+        box.appendChild(next);
+        void next.offsetWidth;
+        if (old) {
+          old.classList.add('vc-out');
+          setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 500);
+        } else {
+          next.classList.remove('vc-in');
+        }
       }
-    }
 
-    function readUv(cb) {
-      var span = document.getElementById('busuanzi_value_site_uv');
-      var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
-      if (v > 0) { cb(v); } else { setTimeout(function () { readUv(cb); }, 600); }
+      // 兜底估算：按一天时段的流量曲线 + 随机抖动，给出一个合理的在线人数（不依赖不蒜子）
+      var hourW = [0.25,0.18,0.12,0.10,0.10,0.12,0.18,0.30,0.45,0.62,0.78,0.90,0.95,0.92,0.85,0.88,0.92,0.97,1.00,0.95,0.82,0.62,0.45,0.32];
+      function baseEstimate() {
+        var w = hourW[new Date().getHours()];
+        return Math.max(1, Math.round((28 + Math.random() * 46) * w));
+      }
+
+      var started = false;
+      function start(est) {
+        if (started) return;
+        started = true;
+        var online = est;
+        setOnline(online);
+        setInterval(function () {
+          var j = Math.floor(Math.random() * 5) - 2;
+          setOnline(Math.max(1, online + j));
+        }, 10000);
+      }
+
+      // 优先用不蒜子的累计访客估算在线人数；若 4 秒内未拿到（被拦截/服务异常），用兜底估算，保证数字一定显示
+      function readUv(cb) {
+        var span = document.getElementById('busuanzi_value_site_uv');
+        var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
+        if (v > 0) { cb(v); } else { setTimeout(function () { readUv(cb); }, 600); }
+      }
+      readUv(function (uv) { start(Math.max(1, Math.round(uv * 0.011 * hourW[new Date().getHours()]))); });
+      setTimeout(function () { if (!started) start(baseEstimate()); }, 4000);
     }
-    var hourW = [0.25,0.18,0.12,0.10,0.10,0.12,0.18,0.30,0.45,0.62,0.78,0.90,0.95,0.92,0.85,0.88,0.92,0.97,1.00,0.95,0.82,0.62,0.45,0.32];
-    function estimateOnline(uv) { var w = hourW[new Date().getHours()]; return Math.max(1, Math.round(uv * 0.011 * w)); }
-    var online = 1;
-    readUv(function (uv) {
-      online = estimateOnline(uv);
-      setOnline(online);
-      setInterval(function () { var j = Math.floor(Math.random() * 5) - 2; setOnline(Math.max(1, online + j)); }, 10000);
-    });
-  }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', startVisitorCounter); } else { startVisitorCounter(); }
 })();
