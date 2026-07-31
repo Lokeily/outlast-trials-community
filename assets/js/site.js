@@ -343,11 +343,31 @@
   updateCountdowns();
 })();
 
-/* 访客计数器：真实累计(不蒜子) + 实时在线估算 */
+/* 访客计数器：真实累计(不蒜子) + 实时在线估算 + 数字轮盘切换 */
 (function () {
   function startVisitorCounter() {
-    var onEl = document.getElementById('vcOnline');
-    if (!onEl) return;
+    var box = document.getElementById('vcOnline');
+    if (!box) return;
+
+    function setOnline(n) {
+      n = String(n);
+      if (box.dataset.cur === n) return;
+      box.dataset.cur = n;
+      box.style.width = n.length + 'ch';
+      var old = box.querySelector('.vc-digit');
+      var next = document.createElement('span');
+      next.className = 'vc-digit vc-in';
+      next.textContent = n;
+      box.appendChild(next);
+      void next.offsetWidth;
+      if (old) {
+        old.classList.add('vc-out');
+        setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 500);
+      } else {
+        next.classList.remove('vc-in');
+      }
+    }
+
     function readUv(cb) {
       var span = document.getElementById('busuanzi_value_site_uv');
       var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
@@ -358,8 +378,8 @@
     var online = 1;
     readUv(function (uv) {
       online = estimateOnline(uv);
-      onEl.textContent = online;
-      setInterval(function () { var j = Math.floor(Math.random() * 5) - 2; onEl.textContent = Math.max(1, online + j); }, 4000);
+      setOnline(online);
+      setInterval(function () { var j = Math.floor(Math.random() * 5) - 2; setOnline(Math.max(1, online + j)); }, 4000);
     });
   }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', startVisitorCounter); } else { startVisitorCounter(); }
