@@ -78,6 +78,11 @@ if st != 200:
     print(resp)
     sys.exit(1)
 
+# 4.5) 启用 workers.dev 路由（否则访问 *.workers.dev 会 404 / error 1042: route disabled）
+st, resp = api("POST", f"/accounts/{ACCOUNT}/workers/scripts/{SCRIPT}/subdomain",
+               json.dumps({"enabled": True}), {"Content-Type": "application/json"})
+print("enable route:", st)
+
 # 4) 输出访问地址
 sub_resp = api("GET", f"/accounts/{ACCOUNT}/workers/subdomain")[1]
 subdomain = json.loads(sub_resp)["result"]["subdomain"]
