@@ -8,11 +8,11 @@
 <line x1="48" y1="166.8" x2="742" y2="166.8" stroke="#22262b" stroke-width="1"/>
 <text x="40" y="170.8" fill="#7a8089" font-size="10" text-anchor="end">0</text>
 <line x1="48" y1="123.2" x2="742" y2="123.2" stroke="#22262b" stroke-width="1"/>
-<text x="40" y="127.2" fill="#7a8089" font-size="10" text-anchor="end">0</text>
+<text x="40" y="127.2" fill="#7a8089" font-size="10" text-anchor="end">1</text>
 <line x1="48" y1="79.6" x2="742" y2="79.6" stroke="#22262b" stroke-width="1"/>
-<text x="40" y="83.6" fill="#7a8089" font-size="10" text-anchor="end">0</text>
+<text x="40" y="83.6" fill="#7a8089" font-size="10" text-anchor="end">1</text>
 <line x1="48" y1="36.0" x2="742" y2="36.0" stroke="#22262b" stroke-width="1"/>
-<text x="40" y="40.0" fill="#7a8089" font-size="10" text-anchor="end">1</text>
+<text x="40" y="40.0" fill="#7a8089" font-size="10" text-anchor="end">2</text>
 <rect x="52.4" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-03: 0 人</title></rect>
 <text x="64.0" y="270" fill="#7a8089" font-size="9" text-anchor="middle">07-03</text>
 <rect x="75.5" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-04: 0 人</title></rect>
@@ -48,7 +48,7 @@
 <rect x="653.9" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-29: 0 人</title></rect>
 <rect x="677.0" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-30: 0 人</title></rect>
 <rect x="700.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-31: 0 人</title></rect>
-<rect x="723.3" y="36.0" width="14.3" height="218.0" rx="2" fill="#ff3b4e"><title>2026-08-01: 1 人</title></rect>
+<rect x="723.3" y="36.0" width="14.3" height="218.0" rx="2" fill="#ff3b4e"><title>2026-08-01: 2 人</title></rect>
 <text x="734.8" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-01</text>
 <line x1="48" y1="254" x2="742" y2="254" stroke="#3a3f47" stroke-width="1"/>
 <text x="742" y="294" fill="#5a6069" font-size="9" text-anchor="end">红=周五六日 · 数据由 Cloudflare Worker + KV 统计</text>
