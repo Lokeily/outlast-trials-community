@@ -159,18 +159,15 @@
     })();
   }
   function delLine(){
-    return (function(){
-      var p = Promise.resolve();
-      while (el.lastChild){
-        (function(){
-          p = p.then(function(){
-            el.removeChild(el.lastChild);
-            return sleep(26);
-          });
-        })();
-      }
-      return p.then(function(){ return sleep(320); });
-    })();
+    var nodes = Array.prototype.slice.call(el.childNodes); // 先快照要删的节点数量
+    var p = Promise.resolve();
+    nodes.forEach(function(){
+      p = p.then(function(){
+        if (el.lastChild) el.removeChild(el.lastChild);
+        return sleep(26);
+      });
+    });
+    return p.then(function(){ return sleep(320); });
   }
   function loop(){
     typeLine(lines[i]).then(function(){
