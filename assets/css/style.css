@@ -829,3 +829,10 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .visitor-counter .vc-num.vc-on{color:var(--red-bright)}
 .visitor-counter .vc-sep{width:1px;height:14px;background:var(--border-soft);margin:0 2px}
 @media (max-width:560px){.visitor-counter{left:10px;bottom:10px;padding:6px 10px;gap:6px;font-size:11px}.visitor-counter .vc-num{font-size:12px}}
+/* 数字轮盘切换：模糊上下滑动 */
+.visitor-counter .vc-num{position:relative;display:inline-block;overflow:hidden;height:1.25em;line-height:1.25em;vertical-align:bottom;transition:width .35s ease}
+.visitor-counter .vc-digit{position:absolute;left:0;top:0;display:inline-block;will-change:transform,filter}
+.visitor-counter .vc-digit.vc-in{animation:vcIn .48s cubic-bezier(.2,.7,.2,1) both}
+.visitor-counter .vc-digit.vc-out{animation:vcOut .48s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vcIn{from{transform:translateY(115%);filter:blur(6px);opacity:0}to{transform:translateY(0);filter:blur(0);opacity:1}}
+@keyframes vcOut{from{transform:translateY(0);filter:blur(0);opacity:1}to{transform:translateY(-115%);filter:blur(6px);opacity:0}}
