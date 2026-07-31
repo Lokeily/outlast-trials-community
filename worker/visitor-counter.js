@@ -1,12 +1,16 @@
-// Cloudflare Worker：每日真实访问计数器
+// Cloudflare Worker：每日真实访问计数器 + 实时在线人数
 // KV binding 名: VIEWS
 // 路径:
-//   POST/GET /track  -> 给「当天(北京时间)」计数 +1，返回 {date,count,counted}
-//   GET     /stats?days=N -> 返回最近 N 天 [{date,count}]
+//   POST/GET /track?vid=xxx  -> 给「当天(北京时间)」唯一访客 +1（同 vid 当天只计一次），
+//                               并刷新该访客的在线会话(5 分钟 TTL)；返回 {date,count,counted,online}
+//   GET     /online          -> 返回当前实时在线人数 {online}
+//   GET     /stats?days=N    -> 返回最近 N 天 [{date,count}]（供 README 图表使用）
 //
 // 北京日期 = UTC 时间 +8h 后取日期，保证「每天」按北京时间归并。
 
-const TZ_OFFSET = 8 * 60 * 60 * 1000; // 北京时间 = UTC+8
+const TZ_OFFSET = 8 * 60 * 60 * 1000;     // 北京时间 = UTC+8
+const ONLINE_TTL = 300;                    // 在线会话有效期(秒)：最后心跳后 5 分钟算离线
+const VISIT_TTL = 25 * 3600;               // 当日访问去重窗口(秒)：约覆盖到次日北京时间结束
 
 function beijingDate(d) {
   const b = new Date(d.getTime() + TZ_OFFSET);
@@ -32,6 +36,18 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
+// 统计在线人数：列出所有 online: 前缀的 key 并计数（KV 列表最终一致，秒级延迟可忽略）
+async function countOnline(env) {
+  let n = 0;
+  let cursor;
+  do {
+    const res = await env.VIEWS.list({ prefix: 'online:', cursor });
+    n += res.keys.length;
+    cursor = res.list_complete ? undefined : res.cursor;
+  } while (cursor);
+  return n;
+}
+
 export default {
   async fetch(request, env, ctx) {
     if (request.method === 'OPTIONS') {
@@ -41,22 +57,47 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // ---- 计数埋点 ----
+    // ---- 实时在线人数 ----
+    if (path === '/online') {
+      const online = await countOnline(env);
+      return json({ online }, CORS);
+    }
+
+    // ---- 计数埋点（页面加载 + 心跳）----
     if (path === '/track') {
       const referer = request.headers.get('referer') || '';
       const ua = (request.headers.get('user-agent') || '').toLowerCase();
       const fromSite = referer.includes('lokeily.github.io') || referer.includes('outlast');
       const isBot = /bot|crawl|spider|preview|headless|slurp|bingpreview/i.test(ua);
       const today = beijingDate(new Date());
+      const vid = url.searchParams.get('vid') || ('anon-' + Math.random().toString(36).slice(2, 8));
+
       const prev = parseInt((await env.VIEWS.get(today)) || '0', 10);
 
-      // 只统计来自本站、且非爬虫/预览的真实访问，避免刷量
       if (!fromSite || isBot) {
-        return json({ date: today, count: prev, counted: false }, CORS);
+        const online = await countOnline(env);
+        return json({ date: today, count: prev, counted: false, online }, CORS);
       }
-      const next = prev + 1;
-      ctx.waitUntil(env.VIEWS.put(today, String(next)));
-      return json({ date: today, count: next, counted: true }, CORS);
+
+      // 在线：刷新会话 TTL（每次加载/心跳都刷新；超过 5 分钟无心跳则自动过期）
+      ctx.waitUntil(env.VIEWS.put('online:' + vid, today, { expirationTtl: ONLINE_TTL }));
+
+      // 当日访问人次：同一访客(vid)当天仅计一次，避免刷新/心跳刷量
+      const visitKey = 'visit:' + vid + ':' + today;
+      const already = await env.VIEWS.get(visitKey);
+      let count = prev;
+      let counted = false;
+      if (!already) {
+        count = prev + 1;
+        counted = true;
+        ctx.waitUntil(Promise.all([
+          env.VIEWS.put(today, String(count)),
+          env.VIEWS.put(visitKey, '1', { expirationTtl: VISIT_TTL }),
+        ]));
+      }
+      // 重新统计在线（含本次刚写入的会话；KV 最终一致，可能略有延迟，下次轮询会补上）
+      const online = await countOnline(env);
+      return json({ date: today, count, counted, online }, CORS);
     }
 
     // ---- 统计读取（公开，供 README 图表使用）----
