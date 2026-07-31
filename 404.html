@@ -3,33 +3,185 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>页面未找到 · 逃生试炼社区</title>
+<title>页面跑进毒气室了 · 逃生试炼社区</title>
+<meta name="description" content="404 —— 这道入口通向毒气室。回逃生试炼社区首页，查看复生方案、装备图鉴、新手小贴士、新闻资讯与社区讨论。">
+<meta name="robots" content="noindex">
 <style>
-  :root{--bg:#0e0f12;--card:#16181d;--text:#e8e8ea;--mute:#9aa0a6;--red:#e23}
+  :root{
+    --bg:#0d0e11; --panel:#14161b; --line:#262b33;
+    --text:#eaebee; --mute:#9aa1a9; --red:#ee2233; --red-d:#a31623;
+  }
   *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
-  .box{max-width:520px;padding:40px;text-align:center}
-  h1{font-size:3.4rem;margin:0 0 8px;color:var(--red)}
-  p{color:var(--mute);line-height:1.7;margin:8px 0}
-  .links{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-  .links a{padding:9px 16px;background:var(--card);border:1px solid #2a2e36;border-radius:999px;color:var(--text);text-decoration:none;font-size:.92rem}
-  .links a:hover{border-color:var(--red);color:#fff}
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh; background:radial-gradient(1200px 700px at 50% -10%, #16181f 0%, var(--bg) 60%);
+    color:var(--text); font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:28px 16px 40px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px; margin-bottom:22px; text-decoration:none; color:var(--text);
+  }
+  .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)}
+  .brand b{font-weight:700;letter-spacing:.5px}
+  .brand span{color:var(--mute);font-size:.82rem}
+
+  .stage{
+    width:100%; max-width:620px; background:var(--panel);
+    border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 18px 50px rgba(0,0,0,.45);
+  }
+  .bar{
+    display:flex; align-items:center; gap:7px; padding:11px 15px;
+    background:#0f1115; border-bottom:1px solid var(--line);
+  }
+  .bar i{width:11px;height:11px;border-radius:50%;background:#2c313a;display:block}
+  .bar i.r{background:#ff5f56}.bar i.y{background:#ffbd2e}.bar i.g{background:#27c93f}
+  .bar em{margin-left:8px;color:var(--mute);font-style:normal;font-size:.8rem;letter-spacing:.5px}
+  .screen{
+    position:relative; padding:26px 22px 30px; min-height:118px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"PingFang SC",monospace;
+    font-size:1.18rem; line-height:1.75; letter-spacing:.3px;
+  }
+  .screen::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+  }
+  #typed{color:var(--text); text-shadow:0 0 10px rgba(238,34,51,.18)}
+  .cursor{
+    display:inline-block; width:.55em; height:1.05em; background:var(--red);
+    margin-left:3px; transform:translateY(3px); border-radius:1px;
+    animation:blink 1.05s steps(1,end) infinite; box-shadow:0 0 10px var(--red);
+  }
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  .ch{display:inline-block; animation:chIn .42s ease both}
+  @keyframes chIn{from{filter:blur(7px);opacity:.12;transform:translateY(2px)}to{filter:blur(0);opacity:1;transform:none}}
+
+  .cta{margin:22px 0 4px}
+  .cta a{
+    display:inline-block; padding:13px 30px; border-radius:999px; text-decoration:none;
+    background:var(--red); color:#fff; font-weight:700; letter-spacing:1px;
+    box-shadow:0 8px 24px rgba(238,34,51,.35); transition:transform .15s, background .15s;
+  }
+  .cta a:hover{background:#ff3346; transform:translateY(-2px)}
+
+  .gate{width:100%; max-width:620px; margin-top:30px}
+  .gate h2{font-size:.95rem; color:var(--mute); font-weight:600; margin:0 0 14px; text-align:center; letter-spacing:1px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:11px}
+  .grid a{
+    display:block; padding:14px 15px; background:var(--panel); border:1px solid var(--line);
+    border-radius:11px; text-decoration:none; color:var(--text); transition:border-color .15s, transform .15s;
+  }
+  .grid a:hover{border-color:var(--red); transform:translateY(-2px)}
+  .grid a b{display:block; font-size:1rem; margin-bottom:4px}
+  .grid a small{color:var(--mute); font-size:.8rem; line-height:1.5}
+
+  footer{margin-top:30px; color:var(--mute); font-size:.78rem; text-align:center; line-height:1.7}
+  footer a{color:var(--mute); text-decoration:underline}
+
+  @media (prefers-reduced-motion: reduce){
+    .ch{animation:none}
+    .cursor{animation:none}
+  }
 </style>
 </head>
 <body>
-  <main class="box">
-    <h1>404</h1>
-    <p>抱歉，你访问的页面不存在或已被移动。</p>
-    <p>试试下面的常用入口：</p>
-    <div class="links">
-      <a href="index.html">首页</a>
-      <a href="newbie.html">新手小贴士</a>
-      <a href="rebirth.html">复生方案</a>
-      <a href="amp-guide.html">装备图鉴</a>
-      <a href="news.html">新闻资讯</a>
-      <a href="updates.html">更新记录</a>
-      <a href="discuss.html">社区讨论</a>
+  <a class="brand" href="index.html">
+    <span class="dot"></span><b>逃生试炼社区</b><span>· 社区应急响应</span>
+  </a>
+
+  <div class="stage">
+    <div class="bar">
+      <i class="r"></i><i class="y"></i><i class="g"></i>
+      <em>实验室广播 · 实时通讯</em>
     </div>
-  </main>
+    <div class="screen">
+      <span id="typed"></span><span class="cursor"></span>
+    </div>
+  </div>
+
+  <p class="cta"><a href="index.html">返回首页避难</a></p>
+
+  <section class="gate">
+    <h2>别在毒气室里乱逛，去正确的入口：</h2>
+    <div class="grid">
+      <a href="index.html"><b>首页</b><small>社区总览与每日到访曲线</small></a>
+      <a href="rebirth.html"><b>复生方案</b><small>红框推荐配装九宫格</small></a>
+      <a href="amp-guide.html"><b>装备图鉴</b><small>强化剂与装备数值一览</small></a>
+      <a href="newbie.html"><b>新手小贴士</b><small>从入坑到进阶的快速通道</small></a>
+      <a href="news.html"><b>新闻资讯</b><small>赛季与版本最新动态</small></a>
+      <a href="updates.html"><b>更新记录</b><small>本站与游戏版本历史</small></a>
+      <a href="discuss.html"><b>社区讨论</b><small>留下你的 Steam ID 一起聊</small></a>
+    </div>
+  </section>
+
+  <footer>
+    逃生试炼社区 · 玩家共建小站<br>
+    页面未发现？先回 <a href="index.html">首页</a> 看看。
+  </footer>
+
+<script>
+(function(){
+  var lines = [
+    "页面跑进毒气室了，回首页看看吧",
+    "这道实验程序卡死，研究员已撤离现场",
+    "你被注射了镇定剂，页面正在慢慢重启……",
+    "这条线索通向死胡同，换个入口试试",
+    "监控室信号中断，我们暂时看不到这一页",
+    "毒气浓度超标，本区域已被封锁",
+    "你触发了陷阱门，直接跌回了主菜单",
+    "实验体逃逸失败，请返回安全屋",
+    "这道试炼还没开放，先回社区逛逛",
+    "电流过载，电椅把这一页烤糊了",
+    "处方写错了，这页药剂一点用都没有",
+    "信号被强电干扰，只剩满屏雪花噪点",
+    "你在睡眠舱里睡过头，醒来就回首页",
+    "研究员把你请出了实验室，门已上锁"
+  ];
+  var el = document.getElementById('typed');
+  var i = 0;
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+  function typeLine(text){
+    return (function(){
+      var p = Promise.resolve();
+      for (var k=0; k<text.length; k++){
+        (function(ch){
+          p = p.then(function(){
+            var s = document.createElement('span');
+            s.className = 'ch';
+            s.textContent = ch;
+            el.appendChild(s);
+            return sleep(55 + Math.random()*45);
+          });
+        })(text[k]);
+      }
+      return p.then(function(){ return sleep(2200); });
+    })();
+  }
+  function delLine(){
+    return (function(){
+      var p = Promise.resolve();
+      while (el.lastChild){
+        (function(){
+          p = p.then(function(){
+            el.removeChild(el.lastChild);
+            return sleep(26);
+          });
+        })();
+      }
+      return p.then(function(){ return sleep(320); });
+    })();
+  }
+  function loop(){
+    typeLine(lines[i]).then(function(){
+      return delLine();
+    }).then(function(){
+      i = (i + 1) % lines.length;
+      loop();
+    });
+  }
+  loop();
+})();
+</script>
 </body>
 </html>
