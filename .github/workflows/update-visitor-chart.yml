@@ -1,0 +1,34 @@
+name: 同步每日浏览人数曲线
+
+on:
+  schedule:
+    # 北京时间 00:00 = UTC 16:00
+    - cron: '0 16 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 拉取真实访问数据并生成 SVG 曲线
+        env:
+          STATS_URL: ${{ secrets.VISITOR_STATS_URL }}
+        run: python3 .github/scripts/gen_chart.py
+
+      - name: 提交图表到 README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/visitors-chart.svg
+          if git diff --cached --quiet; then
+            echo "无变化，跳过提交"
+          else
+            git commit -m "chore: 同步每日浏览人数曲线 ($(date +%F))"
+            git push
+          fi
