@@ -19,6 +19,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://outlat-twikoo.netlify.app" crossorigin>
   <link rel="preload" as="script" href="assets/js/twikoo.min.js">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </head><body>
 <header class="site-nav">
   <a class="brand" href="index.html">逃生试炼社区</a>
@@ -149,4 +150,12 @@
 </footer>
   <script src="assets/js/twikoo.min.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <!-- 访客计数：真实累计(不蒜子) + 实时在线估算 -->
+  <div class="visitor-counter" id="visitorCounter" role="status" aria-live="polite">
+    <span class="vc-dot" aria-hidden="true"></span>
+    <span class="vc-cap">当前访客</span><b class="vc-num" id="vcUv">--</b>
+    <span class="vc-sep" aria-hidden="true"></span>
+    <span class="vc-cap">正在浏览</span><b class="vc-num vc-on" id="vcOnline">--</b>
+    <span id="busuanzi_container_site_uv" style="display:none"><span id="busuanzi_value_site_uv">0</span></span>
+  </div>
 </body></html>
