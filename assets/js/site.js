@@ -346,9 +346,8 @@
 /* 访客计数器：真实累计(不蒜子) + 实时在线估算 */
 (function () {
   function startVisitorCounter() {
-    var uvEl = document.getElementById('vcUv');
     var onEl = document.getElementById('vcOnline');
-    if (!uvEl || !onEl) return;
+    if (!onEl) return;
     function readUv(cb) {
       var span = document.getElementById('busuanzi_value_site_uv');
       var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
@@ -358,7 +357,6 @@
     function estimateOnline(uv) { var w = hourW[new Date().getHours()]; return Math.max(1, Math.round(uv * 0.011 * w)); }
     var online = 1;
     readUv(function (uv) {
-      uvEl.textContent = uv;
       online = estimateOnline(uv);
       onEl.textContent = online;
       setInterval(function () { var j = Math.floor(Math.random() * 5) - 2; onEl.textContent = Math.max(1, online + j); }, 4000);
