@@ -836,3 +836,6 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .visitor-counter .vc-digit.vc-out{animation:vcOut .48s cubic-bezier(.2,.7,.2,1) both}
 @keyframes vcIn{from{transform:translateY(115%);filter:blur(6px);opacity:0}to{transform:translateY(0);filter:blur(0);opacity:1}}
 @keyframes vcOut{from{transform:translateY(0);filter:blur(0);opacity:1}to{transform:translateY(-115%);filter:blur(6px);opacity:0}}
+/* 隐藏不蒜子的累计访客数（仅用于 JS 估算在线人数，不在角标展示） */
+.visitor-counter #busuanzi_container_site_uv{display:none !important}
+
