@@ -342,3 +342,27 @@
 
   updateCountdowns();
 })();
+
+/* 访客计数器：真实累计(不蒜子) + 实时在线估算 */
+(function () {
+  function startVisitorCounter() {
+    var uvEl = document.getElementById('vcUv');
+    var onEl = document.getElementById('vcOnline');
+    if (!uvEl || !onEl) return;
+    function readUv(cb) {
+      var span = document.getElementById('busuanzi_value_site_uv');
+      var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
+      if (v > 0) { cb(v); } else { setTimeout(function () { readUv(cb); }, 600); }
+    }
+    var hourW = [0.25,0.18,0.12,0.10,0.10,0.12,0.18,0.30,0.45,0.62,0.78,0.90,0.95,0.92,0.85,0.88,0.92,0.97,1.00,0.95,0.82,0.62,0.45,0.32];
+    function estimateOnline(uv) { var w = hourW[new Date().getHours()]; return Math.max(1, Math.round(uv * 0.011 * w)); }
+    var online = 1;
+    readUv(function (uv) {
+      uvEl.textContent = uv;
+      online = estimateOnline(uv);
+      onEl.textContent = online;
+      setInterval(function () { var j = Math.floor(Math.random() * 5) - 2; onEl.textContent = Math.max(1, online + j); }, 4000);
+    });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', startVisitorCounter); } else { startVisitorCounter(); }
+})();
