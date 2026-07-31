@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>逃生试炼社区</title>
+  <link>https://lokeily.github.io/outlast-trials-community/</link>
+  <description>《逃生：试炼》玩家共建社区：复生方案、装备图鉴、新手小贴士、新闻资讯与社区讨论。</description>
+  <language>zh-CN</language>
+  <lastBuildDate>Sat, 01 Aug 2026 00:00:00 +0000</lastBuildDate>
+  <atom:link href="https://lokeily.github.io/outlast-trials-community/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>首页 · 逃生试炼社区</title>
+    <link>https://lokeily.github.io/outlast-trials-community/index.html</link>
+    <guid>https://lokeily.github.io/outlast-trials-community/index.html</guid>
+    <description>《逃生：试炼》玩家共建社区：复生方案、装备图鉴、新手小贴士、新闻资讯与社区讨论一站直达。</description>
+  </item>
+  <item>
+    <title>新手小贴士 · 逃生试炼社区</title>
+    <link>https://lokeily.github.io/outlast-trials-community/newbie.html</link>
+    <guid>https://lokeily.github.io/outlast-trials-community/newbie.html</guid>
+    <description>《逃生：试炼》新手培养体系方案：从建号教学到强化剂、处方、技能装置的组合养成。</description>
+  </item>
+  <item>
+    <title>复生方案 · 逃生试炼社区</title>
+    <link>https://lokeily.github.io/outlast-trials-community/rebirth.html</link>
+    <guid>https://lokeily.github.io/outlast-trials-community/rebirth.html</guid>
+    <description>《逃生：试炼》强化剂(Amp)配装方案与九宫格推荐：红框精选、好评组合，开局不再迷茫。</description>
+  </item>
+  <item>
+    <title>装备图鉴 · 逃生试炼社区</title>
+    <link>https://lokeily.github.io/outlast-trials-community/amp-guide.html</link>
+    <guid>https://lokeily.github.io/outlast-trials-community/amp-guide.html</guid>
+    <description>《逃生：试炼》全部强化剂与装备图鉴：图标、数值、等级、购买价格一览。</description>
+  </item>
+  <item>
+    <title>新闻资讯 · 逃生试炼社区</title>
+    <link>https://lokeily.github.io/outlast-trials-community/news.html</link>
+    <guid>https://lokeily.github.io/outlast-trials-community/news.html</guid>
+    <description>《逃生：试炼》近期重大更新与补丁中文整理（第七赛季坟场计划、v1.62 等）。</description>
+  </item>
+  <item>
+    <title>更新记录 · 逃生试炼社区</title>
+    <link>https://lokeily.github.io/outlast-trials-community/updates.html</link>
+    <guid>https://lokeily.github.io/outlast-trials-community/updates.html</guid>
+    <description>《逃生：试炼》历代赛季重大更新与全部补丁中文整理。</description>
+  </item>
+  <item>
+    <title>社区讨论 · 逃生试炼社区</title>
+    <link>https://lokeily.github.io/outlast-trials-community/discuss.html</link>
+    <guid>https://lokeily.github.io/outlast-trials-community/discuss.html</guid>
+    <description>《逃生：试炼》玩家综合讨论区：分享入坑故事、配装心得与求带请求。</description>
+  </item>
+</channel>
+</rss>
