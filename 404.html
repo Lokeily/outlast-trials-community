@@ -155,7 +155,7 @@
           });
         })(text[k]);
       }
-      return p.then(function(){ return sleep(2200); });
+      return p.then(function(){ return sleep(5000 + Math.random()*3000); });
     })();
   }
   function delLine(){
