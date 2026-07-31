@@ -54,8 +54,8 @@ if not kv_id:
 # 3) 上传 Worker（multipart: 代码 + 元数据含 KV 绑定）
 code = open(os.path.join(os.path.dirname(__file__), "visitor-counter.js"), "rb").read()
 metadata = json.dumps({
-    "main_module": "visitor-counter.js",
-    "bindings": [{"type": "kv_ns", "name": "VIEWS", "namespace_id": kv_id}],
+    "body_part": "visitor-counter.js",
+    "bindings": [{"type": "kv_namespace", "name": "VIEWS", "namespace_id": kv_id}],
 }).encode("utf-8")
 
 boundary = "----cfworkerboundary"
