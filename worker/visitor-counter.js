@@ -1,10 +1,10 @@
 // Cloudflare Worker（经典 Service Worker 格式）：每日真实访问计数器 + 实时在线人数
 // KV binding 名: VIEWS（在经典格式下作为全局变量直接可用）
-// 路径:
-//   POST/GET /track?vid=xxx  -> 给「当天(北京时间)」唯一访客 +1（同 vid 当天只计一次），
-//                               并刷新该访客的在线会话(5 分钟 TTL)；返回 {date,count,counted,online}
-//   GET     /online          -> 返回当前实时在线人数 {online}
-//   GET     /stats?days=N    -> 返回最近 N 天 [{date,count}]（供 README 图表使用）
+// 路径(端点名刻意简短、避开广告拦截器的 track 等关键字):
+//   GET/POST /p?vid=xxx   -> 给「当天(北京时间)」唯一访客 +1（同 vid 当天只计一次），
+//                            并刷新该访客的在线会话(5 分钟 TTL)；返回 {date,count,counted,online}
+//   GET     /o            -> 返回当前实时在线人数 {online}
+//   GET     /stats?days=N -> 返回最近 N 天 [{date,count}]（供 README 图表使用）
 //
 // 北京日期 = UTC 时间 +8h 后取日期，保证「每天」按北京时间归并。
 
@@ -57,16 +57,16 @@ async function handle(request, event) {
   const path = url.pathname;
 
   // ---- 实时在线人数 ----
-  if (path === '/online') {
+  if (path === '/o') {
     const online = await countOnline();
     return json({ online }, CORS);
   }
 
   // ---- 计数埋点（页面加载 + 心跳）----
-  if (path === '/track') {
+  if (path === '/p') {
     const referer = request.headers.get('referer') || '';
     const ua = (request.headers.get('user-agent') || '').toLowerCase();
-    const fromSite = referer.includes('lokeily.github.io') || referer.includes('outlast');
+    const fromSite = referer.includes('lokeily.github.io') || referer.includes('outlast') || referer.includes('lokei.cowu.cc');
     const isBot = /bot|crawl|spider|preview|headless|slurp|bingpreview/i.test(ua);
     const today = beijingDate(new Date());
     const vid = url.searchParams.get('vid') || ('anon-' + Math.random().toString(36).slice(2, 8));
