@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://lokeily.github.io/outlast-trials-community/sitemap.xml
