@@ -368,22 +368,37 @@
         }
       }
 
-      // 兜底估算：按一天时段的流量曲线 + 随机抖动，给出一个合理的在线人数（不依赖不蒜子）
       var hourW = [0.25,0.18,0.12,0.10,0.10,0.12,0.18,0.30,0.45,0.62,0.78,0.90,0.95,0.92,0.85,0.88,0.92,0.97,1.00,0.95,0.82,0.62,0.45,0.32];
-      function baseEstimate() {
-        var w = hourW[new Date().getHours()];
-        return Math.max(1, Math.round((28 + Math.random() * 46) * w));
+      function trafficNow() { return hourW[new Date().getHours()]; }
+
+      // 基线在线人数：跟随真实流量，但设定合理下限，避免小站点恒为 1~3
+      function baselineFromUv(uv) {
+        var w = trafficNow();
+        var raw = uv * 0.018 * (0.5 + w);          // 按累计UV与时段估算
+        return Math.max(4, Math.round(raw));
+      }
+      function baselineFallback() {
+        var w = trafficNow();
+        return Math.max(4, Math.round((15 + Math.random() * 25) * (0.5 + w)));
       }
 
       var started = false;
-      function start(est) {
+      function start(baseline) {
         if (started) return;
         started = true;
-        var online = est;
+        // 围绕基线形成一个自然的浮动区间，而非死盯一个固定数
+        var floor = Math.max(1, Math.round(baseline * 0.45));
+        var ceil  = Math.round(baseline * 1.6) + 4;
+        var online = baseline;
         setOnline(online);
         setInterval(function () {
-          var j = Math.floor(Math.random() * 5) - 2;
-          setOnline(Math.max(1, online + j));
+          // 随机游走 + 向基线轻微回归：数字会自然上下浮动、偶尔跳动，而不是机械地来回拉锯
+          var step = Math.floor(Math.random() * 9) - 4;   // -4 ~ +4
+          var pull = (baseline - online) * 0.12;           // 均值回归，避免长期漂移
+          online = Math.round(online + step + pull);
+          if (online < floor) online = floor + Math.floor(Math.random() * 2);
+          if (online > ceil)  online = ceil  - Math.floor(Math.random() * 2);
+          setOnline(online);
         }, 10000);
       }
 
@@ -393,8 +408,8 @@
         var v = span && span.textContent ? parseInt(span.textContent.replace(/[^0-9]/g, ''), 10) : 0;
         if (v > 0) { cb(v); } else { setTimeout(function () { readUv(cb); }, 600); }
       }
-      readUv(function (uv) { start(Math.max(1, Math.round(uv * 0.011 * hourW[new Date().getHours()]))); });
-      setTimeout(function () { if (!started) start(baseEstimate()); }, 4000);
+      readUv(function (uv) { start(baselineFromUv(uv)); });
+      setTimeout(function () { if (!started) start(baselineFallback()); }, 4000);
     }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', startVisitorCounter); } else { startVisitorCounter(); }
 })();
