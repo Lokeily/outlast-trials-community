@@ -55,6 +55,7 @@ if not kv_id:
 code = open(os.path.join(os.path.dirname(__file__), "visitor-counter.js"), "rb").read()
 metadata = json.dumps({
     "body_part": "visitor-counter.js",
+    "compatibility_date": "2024-09-23",
     "bindings": [{"type": "kv_namespace", "name": "VIEWS", "namespace_id": kv_id}],
 }).encode("utf-8")
 
