@@ -369,8 +369,39 @@
       }
 
       // 一天各时段的相对热度（国内游戏社群作息）：凌晨谷底、白天平台、晚8-9点巅峰、深夜尾巴
-      var hourW = [0.55,0.38,0.20,0.10,0.06,0.05,0.08,0.14,0.20,0.24,0.26,0.30,0.42,0.34,0.32,0.34,0.40,0.55,0.75,0.92,1.00,1.00,0.95,0.78];
-      function trafficNow() { return hourW[new Date().getHours()]; }
+      var hourWBase = [0.55,0.38,0.20,0.10,0.06,0.05,0.08,0.14,0.20,0.24,0.26,0.30,0.42,0.34,0.32,0.34,0.40,0.55,0.75,0.92,1.00,1.00,0.95,0.78];
+
+      // 用日期做种子：同一天刷新结果稳定，不同天自动不同（每天都有变动）
+      function daySeed() {
+        var d = new Date();
+        var key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+        var h = 0;
+        for (var i = 0; i < key.length; i++) { h = (h * 31 + key.charCodeAt(i)) >>> 0; }
+        return h;
+      }
+      // 当日整体系数（确定性伪随机）：约 0.75 ~ 1.25，让每天整体人数量级都有明显波动
+      function dayFactor() {
+        var r = (daySeed() % 10000) / 10000;
+        return 0.75 + r * 0.50;
+      }
+      // 星期系数：周五/六/日更热闹，周一略低
+      function weekdayFactor() {
+        var w = new Date().getDay(); // 0=周日,5=周五,6=周六
+        if (w === 5 || w === 6 || w === 0) return 1.18;
+        if (w === 1) return 0.92;
+        return 1.0;
+      }
+      // 按日期确定的每日偏移（±4 人）：保证相邻两天、同一钟点的基线也一定不同
+      function dayOffset() { return (daySeed() % 9) - 4; }
+      // 动态时段热度：基础曲线 × 当日系数 × 星期系数 + 每小时微抖动（保持整体形态，但每天略有不同）
+      function trafficNow() {
+        var f = dayFactor() * weekdayFactor();
+        var s = daySeed();
+        var h = new Date().getHours();
+        var jit = ((((s ^ (h * 40503)) >>> 0) % 17) / 17 - 0.5) * 0.24; // 每小时 ±12% 确定性微扰，相邻日形状也不同
+        var v = hourWBase[h] * f * (1 + jit);
+        return Math.max(0.03, Math.min(1.45, v));
+      }
 
       // 基线在线人数：跟随真实流量，但设定合理下限，避免小站点恒为 1~3
       function baselineFromUv(uv) {
@@ -387,6 +418,7 @@
       function start(baseline) {
         if (started) return;
         started = true;
+        baseline = baseline + dayOffset(); // 叠加按日期的确定性偏移，让每天都不一样
         // 围绕基线形成一个自然的浮动区间，而非死盯一个固定数
         var floor = Math.max(1, Math.round(baseline * 0.45));
         var ceil  = Math.round(baseline * 1.6) + 4;
