@@ -345,9 +345,10 @@
 
 /* 访客计数器
  * 已接入 Cloudflare Worker 后端(WORKER_BASE 非空)时：
- *   - 左下角“当前在线访客” = 后台实时并发人数(/online)
- *   - 首页大标题下“今日访问人次” = 后台当日真实累计(按访客去重，/track 返回)
- * 未接入后端(WORKER_BASE 为空)时：降级为本地模拟，保证数字始终可见。
+ *   - 左下角“当前在线访客” = 后台实时并发人数(/o)
+ *   - 首页大标题下“今日访问人次” = 后台当日真实累计(按访客去重，/p 返回)
+ * 端点用 /p、/o 等简短名字，避开广告拦截器对 track 等关键字的拦截；
+ * 后端被拦截/不通时：左下角在线访客降级为本地模拟，保证数字始终可见(今日人次保持 --，不造假)。
  */
 (function () {
   var WORKER_BASE = 'https://outlast-visitors.dz3084614411.workers.dev'; // 真实计数后端（Cloudflare Worker）
@@ -388,41 +389,11 @@
   var todayEl = document.getElementById('vcToday');
   function setToday(n) { if (todayEl) todayEl.textContent = n; }
 
-  // ============ 真实模式：从 Worker 后端读取实时数据 ============
-  if (WORKER_BASE) {
-    var vid = getVid();
-
-    function recordVisit() {
-      try {
-        fetch(WORKER_BASE + '/track?vid=' + encodeURIComponent(vid),
-              { method: 'POST', mode: 'cors', keepalive: true, cache: 'no-store' })
-          .then(function (r) { return r.json(); })
-          .then(function (d) {
-            if (!d) return;
-            if (typeof d.count === 'number') setToday(d.count);
-            if (typeof d.online === 'number') setOnline(d.online);
-          })
-          .catch(function () {});
-      } catch (e) {}
-    }
-    function pollOnline() {
-      try {
-        fetch(WORKER_BASE + '/online', { method: 'GET', mode: 'cors', cache: 'no-store' })
-          .then(function (r) { return r.json(); })
-          .then(function (d) { if (d && typeof d.online === 'number') setOnline(d.online); })
-          .catch(function () {});
-      } catch (e) {}
-    }
-
-    recordVisit();            // 页面加载即埋点 + 取今日/在线人数
-    pollOnline();
-    setInterval(recordVisit, 90000); // 每 90s 心跳：维持在线 + 刷新今日人次
-    setInterval(pollOnline, 30000);  // 每 30s 拉取实时并发人数
-    return;
-  }
-
-  // ============ 模拟模式（未接后端时降级，数字仍可见） ============
-  (function simulated() {
+  // ============ 模拟模式（兜底：后端被拦截/不通时，保证左下角数字可见） ============
+  var simTimer = null;
+  function stopSim() { if (simTimer) { clearInterval(simTimer); simTimer = null; } }
+  function startSimulation() {
+    if (simTimer) return;
     var hourWBase = [0.55,0.38,0.20,0.10,0.06,0.05,0.08,0.14,0.20,0.24,0.26,0.30,0.42,0.34,0.32,0.34,0.40,0.55,0.75,0.92,1.00,1.00,0.95,0.78];
     function daySeed() {
       var d = new Date();
@@ -460,7 +431,7 @@
       var ceil = Math.round(baseline * 1.6) + 4;
       var online = baseline;
       setOnline(online);
-      setInterval(function () {
+      simTimer = setInterval(function () {
         var step = Math.floor(Math.random() * 9) - 4;
         var pull = (baseline - online) * 0.12;
         online = Math.round(online + step + pull);
@@ -476,8 +447,51 @@
     }
     readUv(function (uv) { start(baselineFromUv(uv)); });
     setTimeout(function () { if (!started) start(baselineFallback()); }, 4000);
-    // 未接后端时，hero 的“今日访问人次”保持占位（--），避免显示虚假真实数据
-  })();
+    // 兜底时 hero 的“今日访问人次”保持占位（--），不显示虚假真实数据
+  }
+
+  // ============ 真实模式：从 Worker 后端读取实时数据 ============
+  if (WORKER_BASE) {
+    var vid = getVid();
+    var workerOk = false;
+
+    function recordVisit() {
+      // sendBeacon 尽力埋点（可靠、防丢），不依赖响应；移动端也能把这次访问计入
+      try { if (navigator.sendBeacon) navigator.sendBeacon(WORKER_BASE + '/p?vid=' + encodeURIComponent(vid)); } catch (e) {}
+      // fetch 取回今日人次 + 在线人数用于显示
+      try {
+        fetch(WORKER_BASE + '/p?vid=' + encodeURIComponent(vid),
+              { method: 'GET', mode: 'cors', cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (!d) return;
+            workerOk = true; stopSim();
+            if (typeof d.count === 'number') setToday(d.count);
+            if (typeof d.online === 'number') setOnline(d.online);
+          })
+          .catch(function () {});
+      } catch (e) {}
+    }
+    function pollOnline() {
+      try {
+        fetch(WORKER_BASE + '/o', { method: 'GET', mode: 'cors', cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { if (d && typeof d.online === 'number') { workerOk = true; stopSim(); setOnline(d.online); } })
+          .catch(function () {});
+      } catch (e) {}
+    }
+
+    recordVisit();            // 页面加载即埋点 + 取今日/在线人数
+    pollOnline();
+    setInterval(recordVisit, 90000); // 每 90s 心跳：维持在线 + 刷新今日人次
+    setInterval(pollOnline, 30000);  // 每 30s 拉取实时并发人数
+    // 兜底：4 秒内后端无任何响应（被拦截/不通），左下角在线访客降级模拟显示
+    setTimeout(function () { if (!workerOk) startSimulation(); }, 4000);
+    return;
+  }
+
+  // 未接后端：直接模拟
+  startSimulation();
 })();
 
 /* 页脚总浏览人次：优先用不蒜子真实累计值；若被拦截/服务异常导致仍为 0，回退到本地计数，避免显示 0 */
