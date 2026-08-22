@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
 <rect width="760" height="300" fill="#0f1113"/>
-<text x="48" y="22" fill="#e8e8e8" font-size="15" font-weight="700">每日浏览人数曲线（真实数据 · 截至 2026-08-22）</text>
+<text x="48" y="22" fill="#e8e8e8" font-size="15" font-weight="700">每日浏览人数曲线（真实数据 · 截至 2026-08-23）</text>
 <line x1="48" y1="254.0" x2="742" y2="254.0" stroke="#22262b" stroke-width="1"/>
 <text x="40" y="258.0" fill="#7a8089" font-size="10" text-anchor="end">0</text>
 <line x1="48" y1="210.4" x2="742" y2="210.4" stroke="#22262b" stroke-width="1"/>
@@ -13,43 +13,43 @@
 <text x="40" y="83.6" fill="#7a8089" font-size="10" text-anchor="end">2</text>
 <line x1="48" y1="36.0" x2="742" y2="36.0" stroke="#22262b" stroke-width="1"/>
 <text x="40" y="40.0" fill="#7a8089" font-size="10" text-anchor="end">3</text>
-<rect x="52.4" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-24: 0 人</title></rect>
-<text x="64.0" y="270" fill="#7a8089" font-size="9" text-anchor="middle">07-24</text>
-<rect x="75.5" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-25: 0 人</title></rect>
-<rect x="98.7" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-26: 0 人</title></rect>
-<rect x="121.8" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-27: 0 人</title></rect>
-<rect x="144.9" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-28: 0 人</title></rect>
-<rect x="168.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-29: 0 人</title></rect>
-<text x="179.6" y="270" fill="#7a8089" font-size="9" text-anchor="middle">07-29</text>
-<rect x="191.2" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-30: 0 人</title></rect>
-<rect x="214.3" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-31: 0 人</title></rect>
-<rect x="237.5" y="36.0" width="14.3" height="218.0" rx="2" fill="#ff3b4e"><title>2026-08-01: 3 人</title></rect>
-<rect x="260.6" y="108.7" width="14.3" height="145.3" rx="2" fill="#ff3b4e"><title>2026-08-02: 2 人</title></rect>
-<rect x="283.7" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-03: 2 人</title></rect>
-<text x="295.3" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-03</text>
-<rect x="306.9" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-04: 2 人</title></rect>
-<rect x="330.0" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-05: 2 人</title></rect>
-<rect x="353.1" y="181.3" width="14.3" height="72.7" rx="2" fill="#b3263a"><title>2026-08-06: 1 人</title></rect>
-<rect x="376.3" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-07: 0 人</title></rect>
-<rect x="399.4" y="108.7" width="14.3" height="145.3" rx="2" fill="#ff3b4e"><title>2026-08-08: 2 人</title></rect>
-<text x="411.0" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-08</text>
-<rect x="422.5" y="181.3" width="14.3" height="72.7" rx="2" fill="#ff3b4e"><title>2026-08-09: 1 人</title></rect>
-<rect x="445.7" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-10: 0 人</title></rect>
-<rect x="468.8" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-11: 0 人</title></rect>
-<rect x="491.9" y="36.0" width="14.3" height="218.0" rx="2" fill="#b3263a"><title>2026-08-12: 3 人</title></rect>
-<rect x="515.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-13: 0 人</title></rect>
-<text x="526.6" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-13</text>
-<rect x="538.2" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-14: 0 人</title></rect>
-<rect x="561.3" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-15: 0 人</title></rect>
-<rect x="584.5" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-16: 0 人</title></rect>
-<rect x="607.6" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-17: 0 人</title></rect>
-<rect x="630.7" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-18: 2 人</title></rect>
-<text x="642.3" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-18</text>
-<rect x="653.9" y="181.3" width="14.3" height="72.7" rx="2" fill="#b3263a"><title>2026-08-19: 1 人</title></rect>
-<rect x="677.0" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-20: 2 人</title></rect>
-<rect x="700.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-21: 0 人</title></rect>
-<rect x="723.3" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-22: 0 人</title></rect>
-<text x="734.8" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-22</text>
+<rect x="52.4" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-25: 0 人</title></rect>
+<text x="64.0" y="270" fill="#7a8089" font-size="9" text-anchor="middle">07-25</text>
+<rect x="75.5" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-26: 0 人</title></rect>
+<rect x="98.7" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-27: 0 人</title></rect>
+<rect x="121.8" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-28: 0 人</title></rect>
+<rect x="144.9" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-29: 0 人</title></rect>
+<rect x="168.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-07-30: 0 人</title></rect>
+<text x="179.6" y="270" fill="#7a8089" font-size="9" text-anchor="middle">07-30</text>
+<rect x="191.2" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-07-31: 0 人</title></rect>
+<rect x="214.3" y="36.0" width="14.3" height="218.0" rx="2" fill="#ff3b4e"><title>2026-08-01: 3 人</title></rect>
+<rect x="237.5" y="108.7" width="14.3" height="145.3" rx="2" fill="#ff3b4e"><title>2026-08-02: 2 人</title></rect>
+<rect x="260.6" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-03: 2 人</title></rect>
+<rect x="283.7" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-04: 2 人</title></rect>
+<text x="295.3" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-04</text>
+<rect x="306.9" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-05: 2 人</title></rect>
+<rect x="330.0" y="181.3" width="14.3" height="72.7" rx="2" fill="#b3263a"><title>2026-08-06: 1 人</title></rect>
+<rect x="353.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-07: 0 人</title></rect>
+<rect x="376.3" y="108.7" width="14.3" height="145.3" rx="2" fill="#ff3b4e"><title>2026-08-08: 2 人</title></rect>
+<rect x="399.4" y="181.3" width="14.3" height="72.7" rx="2" fill="#ff3b4e"><title>2026-08-09: 1 人</title></rect>
+<text x="411.0" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-09</text>
+<rect x="422.5" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-10: 0 人</title></rect>
+<rect x="445.7" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-11: 0 人</title></rect>
+<rect x="468.8" y="36.0" width="14.3" height="218.0" rx="2" fill="#b3263a"><title>2026-08-12: 3 人</title></rect>
+<rect x="491.9" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-13: 0 人</title></rect>
+<rect x="515.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-14: 0 人</title></rect>
+<text x="526.6" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-14</text>
+<rect x="538.2" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-15: 0 人</title></rect>
+<rect x="561.3" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-16: 0 人</title></rect>
+<rect x="584.5" y="254.0" width="14.3" height="0.0" rx="2" fill="#b3263a"><title>2026-08-17: 0 人</title></rect>
+<rect x="607.6" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-18: 2 人</title></rect>
+<rect x="630.7" y="181.3" width="14.3" height="72.7" rx="2" fill="#b3263a"><title>2026-08-19: 1 人</title></rect>
+<text x="642.3" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-19</text>
+<rect x="653.9" y="108.7" width="14.3" height="145.3" rx="2" fill="#b3263a"><title>2026-08-20: 2 人</title></rect>
+<rect x="677.0" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-21: 0 人</title></rect>
+<rect x="700.1" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-22: 0 人</title></rect>
+<rect x="723.3" y="254.0" width="14.3" height="0.0" rx="2" fill="#ff3b4e"><title>2026-08-23: 0 人</title></rect>
+<text x="734.8" y="270" fill="#7a8089" font-size="9" text-anchor="middle">08-23</text>
 <line x1="48" y1="254" x2="742" y2="254" stroke="#3a3f47" stroke-width="1"/>
 <text x="742" y="294" fill="#5a6069" font-size="9" text-anchor="end">红=周五六日 · 数据由 Cloudflare Worker + KV 统计</text>
 </svg>
